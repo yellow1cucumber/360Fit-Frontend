@@ -2,12 +2,12 @@ import { Routes } from '@angular/router';
 import {HeaderComponent} from "./Components/header/header.component";
 
 export const routes: Routes = [
-  {path: "/", component: HeaderComponent},
-  {path: "clients", component: HeaderComponent},
-  {path: "service", component: HeaderComponent},
-  {path: "storage", component: HeaderComponent},
-  {path: "nomenclature", component: HeaderComponent},
-  {path: "staff", component: HeaderComponent},
-  {path: "taxes", component: HeaderComponent},
-  {path: "reports", component: HeaderComponent},
+  {title: "Главная",      path: "/",            component: HeaderComponent},
+  {title: "Клиенты",      path: "clients",      component: HeaderComponent},
+  {title: "Услуги",       path: "service",      component: HeaderComponent},
+  {title: "Склад",        path: "storage",      component: HeaderComponent},
+  {title: "Номенклатура", path: "nomenclature", component: HeaderComponent},
+  {title: "Сотрудники",   path: "staff",        component: HeaderComponent},
+  {title: "Расходы",      path: "taxes",        component: HeaderComponent},
+  {title: "Отчеты",       path: "reports",      component: HeaderComponent},
 ];
