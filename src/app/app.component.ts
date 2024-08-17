@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {NavLinkComponent} from "./Components/nav-link/nav-link.component";
+import {LogoComponent} from "./Components/logo/logo.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, NavLinkComponent],
+  imports: [RouterOutlet, NavLinkComponent, LogoComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })

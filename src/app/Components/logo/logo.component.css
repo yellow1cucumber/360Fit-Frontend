@@ -1,3 +1,8 @@
-
+:host {
+  display: block;
+}
+:host img {
+  display: block;
+}
 
 /*# sourceMappingURL=logo.component.css.map */
