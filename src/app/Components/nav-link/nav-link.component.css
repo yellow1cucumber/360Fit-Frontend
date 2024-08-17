@@ -1,0 +1,16 @@
+:host a {
+  display: block;
+  color: #2B2B2B;
+  text-decoration: none;
+  font-size: larger;
+  transition: all 200ms;
+  -webkit-transition: all 200ms;
+  -moz-transition: all 200ms;
+  -ms-transition: all 200ms;
+  -o-transition: all 200ms;
+}
+:host a:hover {
+  color: #FF5454;
+}
+
+/*# sourceMappingURL=nav-link.component.css.map */

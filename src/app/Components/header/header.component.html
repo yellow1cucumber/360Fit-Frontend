@@ -1,0 +1,8 @@
+<app-logo/>
+
+<div class="navigation-container">
+  <app-nav-link *ngFor="let route of this.routes"
+                  link="{{ route.path }}"
+                  text="{{ route.title }}"
+                />
+</div>
