@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
   selector: 'app-nav-link',
@@ -8,5 +8,6 @@ import { Component } from '@angular/core';
   styleUrl: './nav-link.component.scss'
 })
 export class NavLinkComponent {
-
+  @Input() link: string;
+  @Input() text: string;
 }
