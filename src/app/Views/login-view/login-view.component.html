@@ -1,0 +1,29 @@
+<div class="login-container">
+
+  <div class="logo">
+    <img src="Logo.png" alt="360Fit">
+  </div>
+
+  <div class="title">
+    <h2 class="roboto-regular">Авторизация</h2>
+    <hr>
+  </div>
+
+  <div class="form">
+    <input type="tel"
+           [(ngModel)]="this.LoginForm.login"
+           name="phoneNumber"
+           id="phone"
+           placeholder="+7 (771) 385 15-74"
+           pattern="(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?"
+           required>
+    <input type="password"
+           [(ngModel)]="this.LoginForm.password"
+           name="password"
+           id="pass"
+           placeholder="Пароль"
+           required>
+
+    <button class="roboto-regular"> Вход </button>
+  </div>
+</div>
