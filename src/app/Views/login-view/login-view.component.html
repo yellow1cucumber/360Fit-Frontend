@@ -10,8 +10,20 @@
   </div>
 
   <div class="form">
-    <input type="tel" name="phoneNumber" id="phone" placeholder="+7 (771) 385 15-74" pattern="(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?" required>
-    <input type="password" name="password" id="pass" placeholder="Пароль" required>
+    <input type="tel"
+           [(ngModel)]="this.LoginForm.login"
+           name="phoneNumber"
+           id="phone"
+           placeholder="+7 (771) 385 15-74"
+           pattern="(\s*)?(\+)?([- _():=+]?\d[- _():=+]?){10,14}(\s*)?"
+           required>
+    <input type="password"
+           [(ngModel)]="this.LoginForm.password"
+           name="password"
+           id="pass"
+           placeholder="Пароль"
+           required>
+
     <button class="roboto-regular"> Вход </button>
   </div>
 </div>
