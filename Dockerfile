@@ -1,5 +1,5 @@
 # Stage 1: Сборка приложения
-FROM node:20-alpine AS build
+FROM node:current-alpine3.20 AS build
 WORKDIR /app
 
 COPY package*.json ./
@@ -9,11 +9,11 @@ COPY . .
 RUN ng build
 
 # Stage 2: Запуск nginx
-FROM nginx:alpine
+FROM nginx:stable-alpine3.20
 
 COPY nginx.conf /etc/nginx/nginx.conf
 
-COPY --from=build /app/dist/frontend/browser /usr/share/nginx/html
-EXPOSE 8080
+COPY --from=build /app/dist/frondent-f360fit/browser /usr/share/nginx/html
 
+# Запускаем nginx
 CMD ["nginx", "-g", "daemon off;"]
