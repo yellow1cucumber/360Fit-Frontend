@@ -7,7 +7,8 @@
 <hr>
 
 <div class="table-rows">
-  <div class="table-row" *ngFor="let user of this.Users;">
+  <div class="table-row" *ngFor="let user of this.Users;"
+                          (dblclick)="this.UserSelected(user)">
     <div class="data">
       <h5 class="roboto-light">{{ user.Surname + " " + user.Name }}</h5>
       <h5 class="roboto-light">{{ user.Phone }}</h5>
