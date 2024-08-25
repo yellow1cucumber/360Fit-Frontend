@@ -85,7 +85,7 @@
       transition: all 300ms;
     }
 
-    &.Closed:hover{
+    &:hover{
       height: 120px;
       width: 120px;
     }
@@ -97,7 +97,6 @@
       height: 80px;
       justify-content: right;
     }
-
     &.Opened{
       top: 45vh;
       right: 0;
