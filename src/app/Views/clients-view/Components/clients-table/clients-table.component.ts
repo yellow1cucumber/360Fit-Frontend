@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import {TableHeaderComponent} from "../table-header/table-header.component";
-import {UsersMockService} from "../../../../../ServicesMock/users-mock.service";
+import {UsersMockService} from "../../../../ServicesMock/users-mock.service";
 import {User} from "../../../../Models/User";
 import {DatePipe, NgClass, NgForOf} from "@angular/common";
 
