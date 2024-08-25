@@ -11,10 +11,4 @@ import {NgClass} from "@angular/common";
   styleUrl: './slide-menu.component.scss'
 })
 export class SlideMenuComponent {
-
-  public IsActive = false;
-
-  public ChangeVisibility(): void {
-    this.IsActive = !this.IsActive;
-  };
 }

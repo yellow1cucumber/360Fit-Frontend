@@ -22,5 +22,42 @@
     grid-area: M;
     max-width: 30vw;
   }
+
+  .slide-button{
+    position: fixed;
+    background-color: #FF5454;
+    border-radius: 15px 0 0 15px;
+    display: flex;
+    align-items: center;
+    transition: all 300ms;
+
+    img{
+      transition: all 300ms;
+    }
+
+    &:hover{
+      height: 120px;
+      width: 120px;
+    }
+
+    &.Closed{
+      top: 45vh;
+      right: 0;
+      width: 50px;
+      height: 80px;
+      justify-content: right;
+    }
+    &.Opened{
+      top: 45vh;
+      right: 30vw;
+      width: 50px;
+      height: 80px;
+      justify-content: left;
+
+      img{
+        transform: rotate(180deg);
+      }
+    }
+  }
 }
 

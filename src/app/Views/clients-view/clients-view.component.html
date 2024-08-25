@@ -1,4 +1,12 @@
 <app-header/>
 <app-user-search/>
 <app-clients-table/>
-<app-slide-menu class="Hidden"/>
+<app-slide-menu [ngClass]="{ 'Active': this.IsSlideMenuActive,
+                             'Hidden': !this.IsSlideMenuActive}"/>
+
+<div class="slide-button"
+     [ngClass]="{ 'Closed': !this.IsSlideMenuActive,
+                  'Opened': this.IsSlideMenuActive }"
+     (click)="this.ChangeSlideMenuVisibility()">
+  <img src="slide-arrow.png" alt="arrow">
+</div>
