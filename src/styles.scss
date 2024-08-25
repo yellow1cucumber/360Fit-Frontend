@@ -83,3 +83,41 @@
   font-weight: 900;
   font-style: italic;
 }
+
+input{
+  width: 80%;
+  background-color: #F5F5F5;
+  border: 1px solid #F5F5F5;
+  height: 3vh;
+  transition: all 300ms;
+  text-align: center;
+
+  &:hover{
+    width: 100%;
+    border: 1px solid #FF5454;
+  }
+}
+
+button{
+  width: 80%;
+  background-color: #198C32;
+  padding: 1vh 3vw;
+  text-align: center;
+  color: white;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.1rem;
+  border: none;
+  outline: none;
+  border-radius: 15px;
+  transition: all 300ms;
+
+  &:hover{
+    width: 100%;
+    background-color: #24AE42;
+  }
+  &:active{
+    background-color: #FF5454;
+  }
+}
