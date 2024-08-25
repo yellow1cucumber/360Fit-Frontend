@@ -1,0 +1,69 @@
+:host{
+  position: fixed;
+  right: 0;
+  top: 0;
+  height: 100vh;
+  width: 25vw;
+  background-color: #fff;
+  padding: 10vh 3vw 2vh 3vw;
+  -webkit-box-shadow: -10px 0px 30px 0px rgba(207,207,207,1);
+  -moz-box-shadow: -10px 0px 30px 0px rgba(207,207,207,1);
+  box-shadow: -10px 0px 30px 0px rgba(207,207,207,1);
+
+  form{
+    margin-top: 4vh;
+  }
+
+  .input-field{
+    display: flex;
+    justify-content: space-between;
+    margin: 1vh 0;
+
+    input{
+      width: 60%;
+    }
+  }
+
+  .user-deposit{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 3vh 0;
+
+    .deposit-value{
+      width: 60%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      button{
+        width: 60%;
+        padding: 1vh 2vw;
+      }
+    }
+  }
+
+  .user-history{
+    width: 100%;
+    height: 10vh;
+
+    textarea{
+      width: 100%;
+      height: 15vh;
+      background-color: #F5F5F5;
+      border: none;
+      border-radius: 15px;
+    }
+  }
+
+  .button-group{
+    display: flex;
+    justify-content: space-between;
+    margin: 10vh 0 0 0;
+
+    button{
+      width: 30%;
+      padding: 1vh 0.5vw;
+    }
+  }
+}
