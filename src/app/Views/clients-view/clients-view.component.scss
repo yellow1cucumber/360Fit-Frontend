@@ -1,10 +1,10 @@
 :host{
   display: grid;
   grid-template-areas:
-      "H H H H H H"
-      "S T T T T T"
-      "S T T T T T"
-      "S T T T T T";
+      "H H H H H H H H H H"
+      "S T T T T T T T T M"
+      "S T T T T T T T T M"
+      "S T T T T T T T T M";
 
   app-header{
     grid-area: H;
@@ -17,6 +17,10 @@
   }
   app-clients-table{
     grid-area: T;
+  }
+  app-slide-menu{
+    grid-area: M;
+    max-width: 30vw;
   }
 }
 
