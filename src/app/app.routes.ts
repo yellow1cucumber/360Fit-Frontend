@@ -3,8 +3,8 @@ import {HeaderComponent} from "./Components/header/header.component";
 import {LoginViewComponent} from "./Views/login-view/login-view.component";
 
 export const routes: Routes = [
-  {path: "main", children: [
-      {title: "Главная",      path: "",             component: HeaderComponent},
+  {path: "main", pathMatch: "prefix", children: [
+      {title: "Главная",      path: "",              component: HeaderComponent},
       {title: "Клиенты",      path: "clients",      component: HeaderComponent},
       {title: "Услуги",       path: "service",      component: HeaderComponent},
       {title: "Склад",        path: "storage",      component: HeaderComponent},

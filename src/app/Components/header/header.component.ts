@@ -16,5 +16,6 @@ import {NgForOf} from "@angular/common";
   styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-  public routes = routes;
+  public parentRoute = routes.at(0)?.path || "";
+  public routes = routes.at(0)?.children || [];
 }
