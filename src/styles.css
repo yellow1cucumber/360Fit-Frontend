@@ -117,5 +117,14 @@ button:hover {
 button:active {
   background-color: #FF5454;
 }
+button.Red {
+  background-color: #FF5454;
+}
+button.Red:hover {
+  background-color: #FF2828;
+}
+button.Red:active {
+  background-color: #FF0000;
+}
 
 /*# sourceMappingURL=styles.css.map */

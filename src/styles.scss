@@ -120,4 +120,14 @@ button{
   &:active{
     background-color: #FF5454;
   }
+
+  &.Red{
+    background-color: #FF5454;
+  }
+  &.Red:hover{
+    background-color: #FF2828;
+  }
+  &.Red:active{
+    background-color: #FF0000;
+  }
 }
