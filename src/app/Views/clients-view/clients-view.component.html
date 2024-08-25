@@ -1,6 +1,6 @@
 <app-header/>
 <app-user-search/>
-<app-clients-table/>
+<app-clients-table (OnDoubleClick)="this.UserSelected($event)"/>
 <app-slide-menu [ngClass]="{ 'Active': this.IsSlideMenuActive,
                              'Hidden': !this.IsSlideMenuActive}"/>
 
