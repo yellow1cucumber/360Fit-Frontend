@@ -82,4 +82,17 @@
   font-style: italic;
 }
 
+input {
+  width: 80%;
+  background-color: #F5F5F5;
+  border: 1px solid #F5F5F5;
+  height: 3vh;
+  transition: all 300ms;
+  text-align: center;
+}
+input:hover {
+  width: 100%;
+  border: 1px solid #FF5454;
+}
+
 /*# sourceMappingURL=styles.css.map */
