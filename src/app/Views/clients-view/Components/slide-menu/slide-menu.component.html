@@ -56,7 +56,10 @@
   </div>
 </form>
 
-<div class="slide-button Closed">
+<div class="slide-button"
+     [ngClass]="{ 'Closed': !this.IsActive,
+                  'Opened': this.IsActive }"
+      (click)="this.ChangeVisibility()">
   <img src="slide-arrow.png" alt="arrow">
 </div>
 
