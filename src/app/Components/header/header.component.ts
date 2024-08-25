@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import {routes} from "../../app.routes";
 import {LogoComponent} from "../logo/logo.component";
-import {NavLinkComponent} from "../nav-link/nav-link.component";
+import {NavLinkComponent} from "./Components/nav-link/nav-link.component";
 import {NgForOf} from "@angular/common";
 
 @Component({

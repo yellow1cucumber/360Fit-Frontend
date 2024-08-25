@@ -1,0 +1,43 @@
+:host{
+  display: block;
+
+  .table-headers{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    padding: 0 2% 0 2%;
+  }
+
+  hr{
+    border: 2px solid #D0D0D0;
+  }
+
+  .table-rows{
+    .table-row{
+      padding-top: 0.7vh;
+      transition: all 200ms;
+
+      .data {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr 1fr;
+        margin: 2vh 0;
+        h5{
+          font-size: 1rem;
+        }
+      }
+    }
+    hr{
+      border: 1px solid #D0D0D0;
+    }
+
+    .table-row:hover{
+      background-color: rgba(255, 84, 84, 0.2);
+    }
+  }
+}
+
+.NotActive{
+  color: #FF5454;
+}
+.Active{
+  color: #198C32;
+}
