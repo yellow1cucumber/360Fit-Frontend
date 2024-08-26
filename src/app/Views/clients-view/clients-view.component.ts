@@ -5,8 +5,9 @@ import {UserSearchComponent} from "./Components/user-search/user-search.componen
 import {SlideMenuComponent} from "./Components/slide-menu/slide-menu.component";
 import {NgClass} from "@angular/common";
 import {User} from "../../Models/User";
-import {USERS_SERVICE_TOKEN} from "../../Services/InjectionTokens";
-import {IUsersService} from "../../Services/Users/i-users.service";
+import {CLIENTS_SERVICE_TOKEN} from "../../Services/InjectionTokens";
+import {ClientsService} from "../../Services/Clients/clients.service";
+
 
 @Component({
   selector: 'app-clients-view',
@@ -22,7 +23,7 @@ import {IUsersService} from "../../Services/Users/i-users.service";
   styleUrl: './clients-view.component.scss'
 })
 export class ClientsViewComponent {
-  constructor(@Inject(USERS_SERVICE_TOKEN) private usersService: IUsersService) {
+  constructor(@Inject(CLIENTS_SERVICE_TOKEN) private clientsService: ClientsService) {
   }
 
   public IsSlideMenuActive: boolean = false;
@@ -30,8 +31,8 @@ export class ClientsViewComponent {
     this.IsSlideMenuActive = !this.IsSlideMenuActive;
   }
 
-  public UserSelected(user: User) : void {
-    this.usersService.SetSelectedUser(user);
+  public ClientSelected(client: User) : void {
+    this.clientsService.SetClientInFocus(client);
     this.IsSlideMenuActive = true;
   }
 }
