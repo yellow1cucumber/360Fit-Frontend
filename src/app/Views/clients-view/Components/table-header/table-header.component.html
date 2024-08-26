@@ -1,4 +1,6 @@
 <h4 class="roboto-regular" (click)="this.OnClick()">
   {{ this.title }}
 </h4>
-<img ngSrc="sort-arrow.png" *ngIf="this.isSorting" fill>
+<img src="sort-arrow.png" *ngIf="this.isSorting"
+      [ngClass]="{ 'SortDown': !this.SortUp,
+                   'SortUp': this.SortUp }">
