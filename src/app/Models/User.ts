@@ -9,4 +9,5 @@ export interface User {
   Deposit: number;
   HasActiveSubscription: boolean
   LastVisit: Date;
+  DateOfBirth: Date;
 }
