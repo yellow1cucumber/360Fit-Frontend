@@ -2,7 +2,7 @@ import {Component, EventEmitter, Output} from '@angular/core';
 import {TableHeaderComponent} from "../table-header/table-header.component";
 import {User} from "../../../../Models/User";
 import {DatePipe, NgClass, NgForOf} from "@angular/common";
-import {IUsersServiceService} from "../../../../Services/Users/iusers-service.service";
+import {IUsersService} from "../../../../Services/Users/i-users.service";
 
 @Component({
   selector: 'app-clients-table',
@@ -19,7 +19,7 @@ import {IUsersServiceService} from "../../../../Services/Users/iusers-service.se
 export class ClientsTableComponent {
   @Output() public OnDoubleClick: EventEmitter<User> = new EventEmitter();
 
-  constructor(private usersService: IUsersServiceService) {
+  constructor(private usersService: IUsersService) {
     this.usersService.GetUsers().subscribe(
       (users: User[]) => {
         this.Users = users;

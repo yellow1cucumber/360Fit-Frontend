@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import {filter, map, Observable, of} from "rxjs";
 import {User} from "../../Models/User";
-import {IUsersServiceService} from "./iusers-service.service";
+import {IUsersService} from "./i-users.service";
 
 @Injectable({
   providedIn: 'root'
 })
-export class UsersMockService implements IUsersServiceService {
+export class UsersMockService implements IUsersService {
   constructor() { }
 
     public GetUserById(id: number): Observable<User> {
