@@ -19,10 +19,7 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
 export class SlideMenuComponent {
   constructor(@Inject(USERS_SERVICE_TOKEN) private usersService: IUsersService) {
     this.usersService.GetSelectedUser().subscribe(
-      (value) => {
-        this.ActiveUser = value;
-        console.log(this.ActiveUser);
-      },
+      value => this.ActiveUser = value
     )
   }
   public ActiveUser: User | null = null;
