@@ -1,7 +1,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {USERS_SERVICE_TOKEN} from "../InjectionTokens";
 import {IUsersService} from "../Users/i-users.service";
-import {map, Observable} from "rxjs";
+import {map, Observable, ReplaySubject} from "rxjs";
 import {User} from "../../Models/User";
 
 @Injectable({
@@ -23,6 +23,20 @@ export class ClientsServiceService {
     throw new Error("Method not implemented.");
   }
 
+  // region Focused client
+  private clientInFocus: ReplaySubject<User> = new ReplaySubject<User>();
+  private clientInFocus$: Observable<User> = this.clientInFocus.asObservable();
+
+  public GetClientInFocus(): Observable<User> {
+    return this.clientInFocus$;
+  }
+  public SetClientInFocus(user: User): void {
+    this.clientInFocus.next(user);
+  }
+  // endregion
+
+
+  // region CRUD
   public CreateClient(user: User): void{
     throw new Error("Method not implemented.");
   }
@@ -32,7 +46,10 @@ export class ClientsServiceService {
   public RemoveClient(user: User): void{
     throw new Error("Method not implemented.");
   }
+  // endregion
 
+
+  // region Utils
   private searchUsers(users: User[], query: string) : User[]{
     return users.filter(
       user => {
@@ -40,4 +57,5 @@ export class ClientsServiceService {
         return userString.includes(query.toLowerCase());
       });
   }
+  // endregion
 }
