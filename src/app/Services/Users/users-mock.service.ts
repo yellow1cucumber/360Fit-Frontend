@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {filter, map, Observable, of} from "rxjs";
+import {BehaviorSubject, filter, map, Observable, of, ReplaySubject} from "rxjs";
 import {User} from "../../Models/User";
 import {IUsersService} from "./i-users.service";
 
@@ -7,6 +7,9 @@ import {IUsersService} from "./i-users.service";
   providedIn: 'root'
 })
 export class UsersMockService implements IUsersService {
+  private selectedUserSubject: ReplaySubject<User> = new ReplaySubject<User>();
+  private selectedUser$: Observable<User> = this.selectedUserSubject.asObservable();
+
   constructor() { }
 
     public GetUserById(id: number): Observable<User> {
@@ -17,6 +20,13 @@ export class UsersMockService implements IUsersService {
     }
     public GetUsers(): Observable<User[]> {
         return this.users;
+    }
+
+    public SetSelectedUser(user: User): void {
+      this.selectedUserSubject.next(user);
+    }
+    public GetSelectedUser(): Observable<User> {
+      return this.selectedUser$;
     }
 
   private users: Observable<User[]> = of([
