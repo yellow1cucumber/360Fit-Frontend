@@ -34,4 +34,11 @@ export class SlideMenuComponent {
     'Email': new FormControl('', Validators.email),
     'DateOfBirth': new FormControl('', Validators.required),
   });
+
+  public ToIsoDate(date: Date | null): string {
+    if (!date) {
+      return '';
+    }
+    return date.toISOString().split('T')[0];
+  }
 }

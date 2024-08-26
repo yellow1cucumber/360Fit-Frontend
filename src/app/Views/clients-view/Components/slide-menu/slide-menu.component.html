@@ -33,7 +33,7 @@
 
   <div class="input-field">
     <label for="DateOfBirth" class="roboto-light">Дата рождения:</label>
-    <input type="date" id="DateOfBirth" formControlName="DateOfBirth" [ngModel]="ActiveUser?.DateOfBirth ?? ''">
+    <input type="date" id="DateOfBirth" formControlName="DateOfBirth" [ngModel]="ToIsoDate(ActiveUser?.DateOfBirth ?? null)">
   </div>
 
 
