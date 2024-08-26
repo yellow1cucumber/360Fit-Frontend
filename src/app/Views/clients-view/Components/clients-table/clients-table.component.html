@@ -7,17 +7,17 @@
 <hr>
 
 <div class="table-rows">
-  <div class="table-row" *ngFor="let user of this.Clients;"
-                          (dblclick)="this.UserSelected(user)">
+  <div class="table-row" *ngFor="let client of this.Clients;"
+                          (dblclick)="this.UserSelected(client)">
     <div class="data">
-      <h5 class="roboto-light">{{ user.Surname + " " + user.Name }}</h5>
-      <h5 class="roboto-light">{{ user.Phone }}</h5>
+      <h5 class="roboto-light">{{ client.Surname + " " + client.Name }}</h5>
+      <h5 class="roboto-light">{{ client.Phone }}</h5>
       <h5 class="roboto-light"
-          [ngClass]="{'NotActive' : !user.HasActiveSubscription,
-        'Active': user.HasActiveSubscription}">
-        {{ user.HasActiveSubscription ? 'Активен' : 'Не активен'}}
+          [ngClass]="{'NotActive' : !client.HasActiveSubscription,
+        'Active': client.HasActiveSubscription}">
+        {{ client.HasActiveSubscription ? 'Активен' : 'Не активен'}}
       </h5>
-      <h5 class="roboto-light">{{ user.LastVisit | date:'dd-mm-yyyy hh:mm' }}</h5>
+      <h5 class="roboto-light">{{ client.LastVisit | date:'dd-mm-yyyy hh:mm' }}</h5>
     </div>
     <hr>
   </div>

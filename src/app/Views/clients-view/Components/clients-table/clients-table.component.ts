@@ -21,7 +21,7 @@ export class ClientsTableComponent {
   @Output() public OnDoubleClick: EventEmitter<User> = new EventEmitter();
 
   constructor(@Inject(CLIENTS_SERVICE_TOKEN) private clientsService: ClientsService) {
-    this.clientsService.Clients.subscribe(
+    this.clientsService.FindClients.subscribe(
       (clients: User[]) => {
         this.Clients = clients;
       });

@@ -1,7 +1,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {USERS_SERVICE_TOKEN} from "../InjectionTokens";
 import {IUsersService} from "../Users/i-users.service";
-import {map, Observable, ReplaySubject} from "rxjs";
+import {BehaviorSubject, combineLatest, map, Observable, ReplaySubject} from "rxjs";
 import {User} from "../../Models/User";
 
 @Injectable({
@@ -10,15 +10,22 @@ import {User} from "../../Models/User";
 export class ClientsService {
   constructor(@Inject(USERS_SERVICE_TOKEN) private usersService: IUsersService) {
     this.Clients = usersService.GetUsers();
+    this.FindClients = combineLatest([this.Clients, this.searchQuery]).pipe(
+      map(([users, query]) => this.searchUsers(users, query))
+    );
   }
 
   public Clients: Observable<User[]>;
 
-  public FindClient(query: string): Observable<User[]> {
-    return this.Clients.pipe(
-      map( users => this.searchUsers(users, query) )
-    )
+  // region Find client
+  private searchQuery: BehaviorSubject<string> = new BehaviorSubject<string>('');
+  public FindClients: Observable<User[]>;
+
+  public FindClient(query: string): void {
+    this.searchQuery.next(query);
   }
+  // endregion
+
   public SortClient(param: any): Observable<User[]> {
     throw new Error("Method not implemented.");
   }
