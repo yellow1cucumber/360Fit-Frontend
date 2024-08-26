@@ -1,8 +1,8 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {TableHeaderComponent} from "../table-header/table-header.component";
-import {UsersMockService} from "../../../../ServicesMock/users-mock.service";
 import {User} from "../../../../Models/User";
 import {DatePipe, NgClass, NgForOf} from "@angular/common";
+import {IUsersServiceService} from "../../../../Services/Users/iusers-service.service";
 
 @Component({
   selector: 'app-clients-table',
@@ -19,8 +19,8 @@ import {DatePipe, NgClass, NgForOf} from "@angular/common";
 export class ClientsTableComponent {
   @Output() public OnDoubleClick: EventEmitter<User> = new EventEmitter();
 
-  constructor(private usersService: UsersMockService) {
-    this.usersService.Users.subscribe(
+  constructor(private usersService: IUsersServiceService) {
+    this.usersService.GetUsers().subscribe(
       (users: User[]) => {
         this.Users = users;
       });
