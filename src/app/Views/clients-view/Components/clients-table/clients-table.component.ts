@@ -1,8 +1,9 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {Component, EventEmitter, Inject, Injectable, Output} from '@angular/core';
 import {TableHeaderComponent} from "../table-header/table-header.component";
 import {User} from "../../../../Models/User";
 import {DatePipe, NgClass, NgForOf} from "@angular/common";
 import {IUsersService} from "../../../../Services/Users/i-users.service";
+import {USERS_SERVICE_TOKEN} from "../../../../Services/InjectionTokens";
 
 @Component({
   selector: 'app-clients-table',
@@ -19,7 +20,7 @@ import {IUsersService} from "../../../../Services/Users/i-users.service";
 export class ClientsTableComponent {
   @Output() public OnDoubleClick: EventEmitter<User> = new EventEmitter();
 
-  constructor(private usersService: IUsersService) {
+  constructor(@Inject(USERS_SERVICE_TOKEN) private usersService: IUsersService) {
     this.usersService.GetUsers().subscribe(
       (users: User[]) => {
         this.Users = users;
