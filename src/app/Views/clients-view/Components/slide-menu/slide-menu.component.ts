@@ -1,9 +1,9 @@
 import {Component, Inject} from '@angular/core';
 import {NgClass} from "@angular/common";
-import {USERS_SERVICE_TOKEN} from "../../../../Services/InjectionTokens";
-import {IUsersService} from "../../../../Services/Users/i-users.service";
+import {CLIENTS_SERVICE_TOKEN} from "../../../../Services/InjectionTokens";
 import {User} from "../../../../Models/User";
 import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} from "@angular/forms";
+import {ClientsService} from "../../../../Services/Clients/clients.service";
 
 @Component({
   selector: 'app-slide-menu',
@@ -17,12 +17,12 @@ import {FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators} fr
   styleUrl: './slide-menu.component.scss'
 })
 export class SlideMenuComponent {
-  constructor(@Inject(USERS_SERVICE_TOKEN) private usersService: IUsersService) {
-    this.usersService.GetSelectedUser().subscribe(
-      value => this.ActiveUser = value
+  constructor(@Inject(CLIENTS_SERVICE_TOKEN) private clientsService: ClientsService) {
+    this.clientsService.GetClientInFocus().subscribe(
+      value => this.ActiveClient = value
     )
   }
-  public ActiveUser: User | null = null;
+  public ActiveClient: User | null = null;
 
   public UserFormGroup: FormGroup = new FormGroup({
     'Name': new FormControl('', Validators.required),

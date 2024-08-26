@@ -3,46 +3,46 @@
 <form class="user-form" [formGroup]="UserFormGroup" >
   <div class="input-field">
     <label for="Name" class="roboto-light">Имя:</label>
-    <input type="text" id="Name" formControlName="Name" [ngModel]="ActiveUser?.Name ?? ''">
+    <input type="text" id="Name" formControlName="Name" [ngModel]="ActiveClient?.Name ?? ''">
   </div>
 
   <div class="input-field">
     <label for="Surname" class="roboto-light">Фамилия:</label>
-    <input type="text" id="Surname" formControlName="Surname" [ngModel]="ActiveUser?.Surname ?? ''">
+    <input type="text" id="Surname" formControlName="Surname" [ngModel]="ActiveClient?.Surname ?? ''">
   </div>
 
   <div class="input-field">
     <label for="Patronymic" class="roboto-light">Отчество:</label>
-    <input type="text" id="Patronymic" formControlName="Patronymic"[ngModel]="ActiveUser?.Patronymic ?? ''">
+    <input type="text" id="Patronymic" formControlName="Patronymic"[ngModel]="ActiveClient?.Patronymic ?? ''">
   </div>
 
   <div class="input-field">
     <label for="CardNumber" class="roboto-light">Номер карты:</label>
-    <input type="text" id="CardNumber" formControlName="CardNumber" [ngModel]="ActiveUser?.CardNumber ?? ''">
+    <input type="text" id="CardNumber" formControlName="CardNumber" [ngModel]="ActiveClient?.CardNumber ?? ''">
   </div>
 
   <div class="input-field">
     <label for="PhoneNumber" class="roboto-light">Номер телефона:</label>
-    <input type="tel" id="PhoneNumber" formControlName="PhoneNumber" [ngModel]="ActiveUser?.Phone ?? ''">
+    <input type="tel" id="PhoneNumber" formControlName="PhoneNumber" [ngModel]="ActiveClient?.Phone ?? ''">
   </div>
 
   <div class="input-field">
     <label for="Email" class="roboto-light">Email:</label>
-    <input type="email" id="Email" formControlName="Email" [ngModel]="ActiveUser?.Email ?? ''">
+    <input type="email" id="Email" formControlName="Email" [ngModel]="ActiveClient?.Email ?? ''">
   </div>
 
   <div class="input-field">
     <label for="DateOfBirth" class="roboto-light">Дата рождения:</label>
-    <input type="date" id="DateOfBirth" formControlName="DateOfBirth" [ngModel]="ToIsoDate(ActiveUser?.DateOfBirth ?? null)">
+    <input type="date" id="DateOfBirth" formControlName="DateOfBirth" [ngModel]="ToIsoDate(ActiveClient?.DateOfBirth ?? null)">
   </div>
 
 
   <div class="user-deposit">
     <h4 class="roboto-light">Баланс:</h4>
-    <div class="deposit-value" [ngClass]="{ 'Positive': ActiveUser && ActiveUser.Deposit > 0,
-                                            'Negative': ActiveUser && ActiveUser.Deposit < 0 }">
+    <div class="deposit-value" [ngClass]="{ 'Positive': ActiveClient && ActiveClient.Deposit > 0,
+                                            'Negative': ActiveClient && ActiveClient.Deposit < 0 }">
       <h4 class="roboto-light">
-        {{ ActiveUser?.Deposit ?? '' }}
+        {{ ActiveClient?.Deposit ?? '' }}
       </h4>
       <button class="roboto-regular">Пополнить</button>
     </div>

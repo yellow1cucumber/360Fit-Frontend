@@ -7,7 +7,7 @@ import {User} from "../../Models/User";
 @Injectable({
   providedIn: 'root'
 })
-export class ClientsServiceService {
+export class ClientsService {
   constructor(@Inject(USERS_SERVICE_TOKEN) private usersService: IUsersService) {
     this.Clients = usersService.GetUsers();
   }
