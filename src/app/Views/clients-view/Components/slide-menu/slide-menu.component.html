@@ -39,8 +39,11 @@
 
   <div class="user-deposit">
     <h4 class="roboto-light">Баланс:</h4>
-    <div class="deposit-value">
-      <h4 class="roboto-light">{{ this.ActiveUser?.Deposit ?? '' }}</h4>
+    <div class="deposit-value" [ngClass]="{ 'Positive': ActiveUser && ActiveUser.Deposit > 0,
+                                            'Negative': ActiveUser && ActiveUser.Deposit < 0 }">
+      <h4 class="roboto-light">
+        {{ ActiveUser?.Deposit ?? '' }}
+      </h4>
       <button class="roboto-regular">Пополнить</button>
     </div>
   </div>

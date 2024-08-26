@@ -35,6 +35,17 @@
       justify-content: space-between;
       align-items: center;
 
+      &.Positive{
+        h4{
+          color: #198C32;
+        }
+      }
+      &.Negative{
+        h4{
+          color: #FF2828;
+        }
+      }
+
       button{
         width: 60%;
         padding: 1vh 2vw;
