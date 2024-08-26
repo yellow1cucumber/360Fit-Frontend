@@ -9,8 +9,10 @@ import {User} from "../../Models/User";
 })
 export class ClientsService {
   constructor(@Inject(USERS_SERVICE_TOKEN) private usersService: IUsersService) {
-    this.Clients = usersService.GetUsers();
-    this.FindClients = combineLatest([this.Clients, this.searchQuery]).pipe(
+    this.Clients = combineLatest([
+      this.usersService.GetUsers(),
+      this.searchQuery.asObservable()
+    ]).pipe(
       map(([users, query]) => this.searchUsers(users, query))
     );
   }
@@ -19,7 +21,6 @@ export class ClientsService {
 
   // region Find client
   private searchQuery: BehaviorSubject<string> = new BehaviorSubject<string>('');
-  public FindClients: Observable<User[]>;
 
   public FindClient(query: string): void {
     this.searchQuery.next(query);
