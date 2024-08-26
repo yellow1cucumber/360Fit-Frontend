@@ -1,7 +1,7 @@
 import {Inject, Injectable} from '@angular/core';
 import {USERS_SERVICE_TOKEN} from "../InjectionTokens";
 import {IUsersService} from "../Users/i-users.service";
-import {Observable} from "rxjs";
+import {map, Observable} from "rxjs";
 import {User} from "../../Models/User";
 
 @Injectable({
@@ -14,8 +14,10 @@ export class ClientsServiceService {
 
   public Clients: Observable<User[]>;
 
-  public FindClient(data: string): Observable<User[]> {
-    throw new Error("Method not implemented.");
+  public FindClient(query: string): Observable<User[]> {
+    return this.Clients.pipe(
+      map( users => this.searchUsers(users, query) )
+    )
   }
   public SortClient(param: any): Observable<User[]> {
     throw new Error("Method not implemented.");
@@ -29,5 +31,13 @@ export class ClientsServiceService {
   }
   public RemoveClient(user: User): void{
     throw new Error("Method not implemented.");
+  }
+
+  private searchUsers(users: User[], query: string) : User[]{
+    return users.filter(
+      user => {
+        const userString = Object.values(user).join(' ').toLowerCase();
+        return userString.includes(query.toLowerCase());
+      });
   }
 }
