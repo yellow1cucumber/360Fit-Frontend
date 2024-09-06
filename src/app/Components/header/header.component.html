@@ -2,7 +2,7 @@
 
 <div class="navigation-container">
   <app-nav-link *ngFor="let route of this.routes"
-                  link="{{ this.parentRoute + '/' + route.path }}"
+                  link="{{ route.path }}"
                   text="{{ route.title }}"
                 />
 </div>
