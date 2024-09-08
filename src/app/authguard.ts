@@ -16,7 +16,7 @@ export class AuthGuard extends KeycloakAuthGuard {
 
   async isAccessAllowed(): Promise<boolean | UrlTree> {
     if (!this.authenticated) {
-      await this.router.navigate(['/home']);
+      await this.router.navigate(['/']);
     }
     return this.authenticated;
   }
