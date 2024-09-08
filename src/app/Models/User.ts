@@ -8,6 +8,6 @@ export interface User {
   Email: string;
   Deposit: number;
   HasActiveSubscription: boolean
-  LastVisit: Date;
-  DateOfBirth: Date;
+  LastVisit: Date | null;
+  DateOfBirth: Date | null;
 }

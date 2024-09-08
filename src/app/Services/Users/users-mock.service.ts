@@ -24,6 +24,22 @@ export class UsersMockService implements IUsersService {
     return this.users;
   }
 
+  public CreateUser(): User {
+    return {
+      Id: 999,
+      Name: "Пусто",
+      Surname: "Пусто",
+      Patronymic: "Пусто",
+      CardNumber: "Пусто",
+      Phone: "Пусто",
+      Email: "Пусто",
+      Deposit: 0,
+      HasActiveSubscription: true,
+      LastVisit: null,
+      DateOfBirth: null
+    }
+  }
+
   public SetSelectedUser(user: User): void {
     this.selectedUserSubject.next(user);
   }
