@@ -7,17 +7,12 @@
 <hr>
 
 <div class="table-rows">
-  <div class="table-row" *ngFor="let client of this.Clients;"
-                          (dblclick)="this.UserSelected(client)">
+  <div class="table-row" *ngFor="let client of users$ | async">
     <div class="data">
-      <h5 class="roboto-light">{{ client.Surname + " " + client.Name }}</h5>
-      <h5 class="roboto-light">{{ client.Phone }}</h5>
-      <h5 class="roboto-light"
-          [ngClass]="{'NotActive' : !client.HasActiveSubscription,
-        'Active': client.HasActiveSubscription}">
-        {{ client.HasActiveSubscription ? 'Активен' : 'Не активен'}}
-      </h5>
-      <h5 class="roboto-light">{{ client.LastVisit | date:'dd-mm-yyyy hh:mm' }}</h5>
+      <h5 class="roboto-light">{{ client.surname + " " + client.name }}</h5>
+      <h5 class="roboto-light">{{ client.patronomic }}</h5>
+      <h5 class="roboto-light"></h5>
+      <h5 class="roboto-light"></h5>
     </div>
     <hr>
   </div>

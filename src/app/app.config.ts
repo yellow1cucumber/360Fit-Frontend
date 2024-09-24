@@ -1,14 +1,20 @@
-import {APP_INITIALIZER, ApplicationConfig, Provider, provideZoneChangeDetection} from '@angular/core';
-import { provideRouter } from '@angular/router';
-import { routes } from './app.routes';
+import {
+  APP_INITIALIZER,
+  ApplicationConfig,
+  Provider,
+  provideZoneChangeDetection
+} from '@angular/core';
+import {provideRouter} from '@angular/router';
+import {routes} from './app.routes';
 import {KeycloakBearerInterceptor, KeycloakService} from "keycloak-angular";
 import {HTTP_INTERCEPTORS, provideHttpClient, withInterceptorsFromDi} from "@angular/common/http";
+import { graphqlProvider } from './graphql.provider';
 
 function initializeKeycloak(keycloak: KeycloakService) {
   return () =>
     keycloak.init({
       config: {
-        url: 'http://localhost:8080',
+        url: 'https://localhost:8443',
         realm: '360Services',
         clientId: '360Fit-frontend',
       },
@@ -36,15 +42,19 @@ const KeycloakInitializerProvider: Provider = {
   useFactory: initializeKeycloak,
   multi: true,
   deps: [KeycloakService]
-}
+};
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    provideZoneChangeDetection({ eventCoalescing: true }),
+    provideZoneChangeDetection({eventCoalescing: true}),
     provideHttpClient(withInterceptorsFromDi()),
     KeycloakInitializerProvider,
     KeycloakBearerInterceptorProvider,
     KeycloakService,
-    provideRouter(routes)
+    provideRouter(routes),
+    provideHttpClient(),
+    graphqlProvider
   ]
 };
+
+

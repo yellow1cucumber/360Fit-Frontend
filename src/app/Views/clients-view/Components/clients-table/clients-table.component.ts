@@ -1,9 +1,8 @@
-import {Component, EventEmitter, Inject, Output} from '@angular/core';
+import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {TableHeaderComponent} from "../table-header/table-header.component";
-import {User} from "../../../../Models/User";
-import {DatePipe, NgClass, NgForOf} from "@angular/common";
-import {CLIENTS_SERVICE_TOKEN} from "../../../../Services/InjectionTokens";
-import {ClientsService} from "../../../../Services/Clients/clients.service";
+import {AsyncPipe, DatePipe, NgClass, NgForOf, NgIf} from "@angular/common";
+import {GetUsersGQL, GetUsersQuery, UserInput} from "../../../../graphql/types";
+import {map, Observable} from "rxjs";
 
 @Component({
   selector: 'app-clients-table',
@@ -12,24 +11,26 @@ import {ClientsService} from "../../../../Services/Clients/clients.service";
     TableHeaderComponent,
     NgForOf,
     DatePipe,
-    NgClass
+    NgClass,
+    AsyncPipe,
+    NgIf
   ],
   templateUrl: './clients-table.component.html',
   styleUrl: './clients-table.component.scss'
 })
-export class ClientsTableComponent {
-  @Output() public OnDoubleClick: EventEmitter<User> = new EventEmitter();
+export class ClientsTableComponent implements OnInit{
+  constructor(private readonly getUsersGQL: GetUsersGQL) {}
 
-  constructor(@Inject(CLIENTS_SERVICE_TOKEN) private clientsService: ClientsService) {
-    this.clientsService.Clients.subscribe(
-      (clients: User[]) => {
-        this.Clients = clients;
-      });
+  @Output() public OnDoubleClick: EventEmitter<UserInput> = new EventEmitter();
+  public users$: Observable<GetUsersQuery['readUsers']>;
+
+  public UserSelected(client: UserInput): void{
+    this.OnDoubleClick.emit(client);
   }
 
-  public Clients: User[] = [];
-
-  public UserSelected(client: User): void{
-    this.OnDoubleClick.emit(client);
+  ngOnInit(): void {
+    this.users$ = this.getUsersGQL.watch().valueChanges.pipe(
+      map(result => result.data.readUsers)
+    );
   }
 }

@@ -1,0 +1,1187 @@
+schema {
+  query: Query
+  mutation: Mutations
+  subscription: Subscriptions
+}
+
+type Query {
+  readUsers(where: UserFilterInput, order: [UserSortInput!]): [User!]!
+  readPaymentDates(
+    where: PaymentDateFilterInput
+    order: [PaymentDateSortInput!]
+  ): [PaymentDate!]!
+  readPaymentRules(where: PaymentRuleFilterInput): [PaymentRule!]!
+  readPayments(
+    where: PaymentFilterInput
+    order: [PaymentSortInput!]
+  ): [Payment!]!
+  readCards(where: CardFilterInput, order: [CardSortInput!]): [Card!]!
+  readServices(
+    where: ServiceFilterInput
+    order: [ServiceSortInput!]
+  ): [Service!]!
+  readProducts(
+    where: ProductFilterInput
+    order: [ProductSortInput!]
+  ): [Product!]!
+  readStoragedProducts(
+    where: StoragedProductFilterInput
+    order: [StoragedProductSortInput!]
+  ): [StoragedProduct!]!
+  readCashRegisters(
+    where: CashRegisterFilterInput
+    order: [CashRegisterSortInput!]
+  ): [CashRegister!]!
+  readStorages(
+    where: StorageFilterInput
+    order: [StorageSortInput!]
+  ): [Storage!]!
+  readNomenclatures(
+    where: NomenclatureFilterInput
+    order: [NomenclatureSortInput!]
+  ): [Nomenclature!]!
+  readSuppliers(
+    where: SupplierFilterInput
+    order: [SupplierSortInput!]
+  ): [Supplier!]!
+}
+
+type Mutations {
+  createUser(payload: UserDTOInput!): User!
+  updateUser(payload: UserDTOInput!, where: UserFilterInput): User!
+  removeUser(payload: UserDTOInput!, where: UserFilterInput): User!
+  createUserCredentials(payload: UserCredentialsDTOInput!): UserCredentials!
+  createProduct(payload: ProductDTOInput!, where: ProductFilterInput): Product!
+  updateProduct(payload: ProductDTOInput!, where: ProductFilterInput): Product!
+  removeProduct(payload: ProductDTOInput!, where: ProductFilterInput): Product!
+  createPaymentDate(
+    payload: PaymentDateDTOInput!
+    where: PaymentDateFilterInput
+  ): PaymentDate!
+  updatePaymentDate(
+    payload: PaymentDateDTOInput!
+    where: PaymentDateFilterInput
+  ): PaymentDate!
+  removePaymentDate(
+    payload: PaymentDateDTOInput!
+    where: PaymentDateFilterInput
+  ): PaymentDate!
+  createPaymentRule(
+    payload: PaymentRuleDTOInput!
+    where: PaymentRuleFilterInput
+  ): PaymentRule!
+  updatePaymentRule(
+    payload: PaymentRuleDTOInput!
+    where: PaymentRuleFilterInput
+  ): PaymentRule!
+  removePaymentRule(
+    payload: PaymentRuleDTOInput!
+    where: PaymentRuleFilterInput
+  ): PaymentRule!
+  createPayment(payload: PaymentDTOInput!, where: PaymentFilterInput): Payment!
+  updatePayment(payload: PaymentDTOInput!, where: PaymentFilterInput): Payment!
+  removePayment(payload: PaymentDTOInput!, where: PaymentFilterInput): Payment!
+  createService(payload: ServiceDTOInput!, where: ServiceFilterInput): Service!
+  updateService(payload: ServiceDTOInput!, where: ServiceFilterInput): Service!
+  removeService(payload: ServiceDTOInput!, where: ServiceFilterInput): Service!
+}
+
+type Subscriptions {
+  onProductCreated: Product!
+  onProductChanged: Product!
+  onProductRemoved: Product!
+  onPaymentDateCreated: PaymentDate!
+  onPaymentDateChanged: PaymentDate!
+  onPaymentDateRemoved: PaymentDate!
+  onPaymentRuleCreated: PaymentRule!
+  onPaymentRuleChanged: PaymentRule!
+  onPaymentRuleRemoved: PaymentRule!
+  onPaymentCreated: Payment!
+  onPaymentChanged: Payment!
+  onPaymentRemoved: Payment!
+  onServiceCreated: Service!
+  onServiceChanged: Service!
+  onServiceRemoved: Service!
+  onUserCreated: User!
+  onUserChanged: User!
+  onUserRemoved: User!
+  onUserCredentialsCreated: UserCredentials!
+  onUserCredentialsChanged: UserCredentials!
+}
+
+input UserFilterInput {
+  and: [UserFilterInput!]
+  or: [UserFilterInput!]
+  name: StringOperationFilterInput
+  surname: StringOperationFilterInput
+  patronomic: StringOperationFilterInput
+  email: StringOperationFilterInput
+  dateOfBirth: DateOperationFilterInput
+  credentials: UserCredentialsFilterInput
+  roles: ListFilterInputTypeOfRoleFilterInput
+  id: IntOperationFilterInput
+}
+
+input UserSortInput {
+  name: SortEnumType
+  surname: SortEnumType
+  patronomic: SortEnumType
+  email: SortEnumType
+  dateOfBirth: SortEnumType
+  credentials: UserCredentialsSortInput
+  id: SortEnumType
+}
+
+input PaymentDateFilterInput {
+  and: [PaymentDateFilterInput!]
+  or: [PaymentDateFilterInput!]
+  date: DateOperationFilterInput
+  price: FloatOperationFilterInput
+  id: IntOperationFilterInput
+}
+
+input PaymentDateSortInput {
+  date: SortEnumType
+  price: SortEnumType
+  id: SortEnumType
+}
+
+input PaymentRuleFilterInput {
+  and: [PaymentRuleFilterInput!]
+  or: [PaymentRuleFilterInput!]
+  dates: ListFilterInputTypeOfPaymentDateFilterInput
+  id: IntOperationFilterInput
+}
+
+input PaymentFilterInput {
+  and: [PaymentFilterInput!]
+  or: [PaymentFilterInput!]
+  provider: UserFilterInput
+  customer: UserFilterInput
+  rule: PaymentRuleFilterInput
+  cart: ListFilterInputTypeOfSalableObjectFilterInput
+  isCompleted: BooleanOperationFilterInput
+  company: CompanyFilterInput
+  id: IntOperationFilterInput
+}
+
+input PaymentSortInput {
+  provider: UserSortInput
+  customer: UserSortInput
+  rule: PaymentRuleSortInput
+  isCompleted: SortEnumType
+  company: CompanySortInput
+  id: SortEnumType
+}
+
+input CardFilterInput {
+  and: [CardFilterInput!]
+  or: [CardFilterInput!]
+  barcode: StringOperationFilterInput
+  owner: UserFilterInput
+  connectedServices: ListFilterInputTypeOfServiceFilterInput
+  id: IntOperationFilterInput
+}
+
+input CardSortInput {
+  barcode: SortEnumType
+  owner: UserSortInput
+  id: SortEnumType
+}
+
+input ServiceFilterInput {
+  and: [ServiceFilterInput!]
+  or: [ServiceFilterInput!]
+  category: CategoryFilterInput
+  providers: ListFilterInputTypeOfUserFilterInput
+  company: CompanyFilterInput
+  name: StringOperationFilterInput
+  description: StringOperationFilterInput
+  priceBuy: FloatOperationFilterInput
+  priceSell: FloatOperationFilterInput
+  id: IntOperationFilterInput
+}
+
+input ServiceSortInput {
+  category: CategorySortInput
+  company: CompanySortInput
+  name: SortEnumType
+  description: SortEnumType
+  priceBuy: SortEnumType
+  priceSell: SortEnumType
+  id: SortEnumType
+}
+
+input ProductFilterInput {
+  and: [ProductFilterInput!]
+  or: [ProductFilterInput!]
+  barCode: StringOperationFilterInput
+  category: CategoryFilterInput
+  name: StringOperationFilterInput
+  description: StringOperationFilterInput
+  priceBuy: FloatOperationFilterInput
+  priceSell: FloatOperationFilterInput
+  id: IntOperationFilterInput
+}
+
+input ProductSortInput {
+  barCode: SortEnumType
+  category: CategorySortInput
+  name: SortEnumType
+  description: SortEnumType
+  priceBuy: SortEnumType
+  priceSell: SortEnumType
+  id: SortEnumType
+}
+
+input StoragedProductFilterInput {
+  and: [StoragedProductFilterInput!]
+  or: [StoragedProductFilterInput!]
+  product: ProductFilterInput
+  quantity: FloatOperationFilterInput
+  id: IntOperationFilterInput
+}
+
+input StoragedProductSortInput {
+  product: ProductSortInput
+  quantity: SortEnumType
+  id: SortEnumType
+}
+
+input CashRegisterFilterInput {
+  and: [CashRegisterFilterInput!]
+  or: [CashRegisterFilterInput!]
+  name: StringOperationFilterInput
+  description: StringOperationFilterInput
+  company: CompanyFilterInput
+  id: IntOperationFilterInput
+}
+
+input CashRegisterSortInput {
+  name: SortEnumType
+  description: SortEnumType
+  company: CompanySortInput
+  id: SortEnumType
+}
+
+input StorageFilterInput {
+  and: [StorageFilterInput!]
+  or: [StorageFilterInput!]
+  name: StringOperationFilterInput
+  description: StringOperationFilterInput
+  products: ListFilterInputTypeOfStoragedProductFilterInput
+  company: CompanyFilterInput
+  id: IntOperationFilterInput
+}
+
+input StorageSortInput {
+  name: SortEnumType
+  description: SortEnumType
+  company: CompanySortInput
+  id: SortEnumType
+}
+
+input NomenclatureFilterInput {
+  and: [NomenclatureFilterInput!]
+  or: [NomenclatureFilterInput!]
+  products: ListFilterInputTypeOfProductFilterInput
+  company: CompanyFilterInput
+  id: IntOperationFilterInput
+}
+
+input NomenclatureSortInput {
+  company: CompanySortInput
+  id: SortEnumType
+}
+
+input SupplierFilterInput {
+  and: [SupplierFilterInput!]
+  or: [SupplierFilterInput!]
+  requisites: RequisitesFilterInput
+  nomenclature: NomenclatureFilterInput
+  company: CompanyFilterInput
+  id: IntOperationFilterInput
+}
+
+input SupplierSortInput {
+  requisites: RequisitesSortInput
+  nomenclature: NomenclatureSortInput
+  company: CompanySortInput
+  id: SortEnumType
+}
+
+input StringOperationFilterInput {
+  and: [StringOperationFilterInput!]
+  or: [StringOperationFilterInput!]
+  eq: String
+  neq: String
+  contains: String
+  ncontains: String
+  in: [String]
+  nin: [String]
+  startsWith: String
+  nstartsWith: String
+  endsWith: String
+  nendsWith: String
+}
+
+input DateOperationFilterInput {
+  eq: Date
+  neq: Date
+  in: [Date]
+  nin: [Date]
+  gt: Date
+  ngt: Date
+  gte: Date
+  ngte: Date
+  lt: Date
+  nlt: Date
+  lte: Date
+  nlte: Date
+}
+
+input UserCredentialsFilterInput {
+  and: [UserCredentialsFilterInput!]
+  or: [UserCredentialsFilterInput!]
+  phoneNumber: StringOperationFilterInput
+  password: StringOperationFilterInput
+  userId: IntOperationFilterInput
+  role: RoleFilterInput
+  id: IntOperationFilterInput
+}
+
+input ListFilterInputTypeOfRoleFilterInput {
+  all: RoleFilterInput
+  none: RoleFilterInput
+  some: RoleFilterInput
+  any: Boolean
+}
+
+input IntOperationFilterInput {
+  eq: Int
+  neq: Int
+  in: [Int]
+  nin: [Int]
+  gt: Int
+  ngt: Int
+  gte: Int
+  ngte: Int
+  lt: Int
+  nlt: Int
+  lte: Int
+  nlte: Int
+}
+
+enum SortEnumType {
+  ASC
+  DESC
+}
+
+input UserCredentialsSortInput {
+  phoneNumber: SortEnumType
+  password: SortEnumType
+  userId: SortEnumType
+  role: RoleSortInput
+  id: SortEnumType
+}
+
+input FloatOperationFilterInput {
+  eq: Float
+  neq: Float
+  in: [Float]
+  nin: [Float]
+  gt: Float
+  ngt: Float
+  gte: Float
+  ngte: Float
+  lt: Float
+  nlt: Float
+  lte: Float
+  nlte: Float
+}
+
+input ListFilterInputTypeOfPaymentDateFilterInput {
+  all: PaymentDateFilterInput
+  none: PaymentDateFilterInput
+  some: PaymentDateFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfSalableObjectFilterInput {
+  all: SalableObjectFilterInput
+  none: SalableObjectFilterInput
+  some: SalableObjectFilterInput
+  any: Boolean
+}
+
+input BooleanOperationFilterInput {
+  eq: Boolean
+  neq: Boolean
+}
+
+input CompanyFilterInput {
+  and: [CompanyFilterInput!]
+  or: [CompanyFilterInput!]
+  publicName: StringOperationFilterInput
+  description: StringOperationFilterInput
+  category: CompanyCategoryOperationFilterInput
+  requisites: RequisitesFilterInput
+  contacts: ContactsFilterInput
+  staff: ListFilterInputTypeOfUserFilterInput
+  clients: ListFilterInputTypeOfUserFilterInput
+  cashRegisters: ListFilterInputTypeOfCashRegisterFilterInput
+  storages: ListFilterInputTypeOfStorageFilterInput
+  nomenclatures: ListFilterInputTypeOfNomenclatureFilterInput
+  suppliers: ListFilterInputTypeOfSupplierFilterInput
+  services: ListFilterInputTypeOfServiceFilterInput
+  payment: ListFilterInputTypeOfPaymentFilterInput
+  id: IntOperationFilterInput
+}
+
+input PaymentRuleSortInput {
+  id: SortEnumType
+}
+
+input CompanySortInput {
+  publicName: SortEnumType
+  description: SortEnumType
+  category: SortEnumType
+  requisites: RequisitesSortInput
+  contacts: ContactsSortInput
+  id: SortEnumType
+}
+
+input ListFilterInputTypeOfServiceFilterInput {
+  all: ServiceFilterInput
+  none: ServiceFilterInput
+  some: ServiceFilterInput
+  any: Boolean
+}
+
+input CategoryFilterInput {
+  and: [CategoryFilterInput!]
+  or: [CategoryFilterInput!]
+  name: StringOperationFilterInput
+  description: StringOperationFilterInput
+  rootCategory: CategoryFilterInput
+  childCategories: ListFilterInputTypeOfCategoryFilterInput
+  id: IntOperationFilterInput
+}
+
+input ListFilterInputTypeOfUserFilterInput {
+  all: UserFilterInput
+  none: UserFilterInput
+  some: UserFilterInput
+  any: Boolean
+}
+
+input CategorySortInput {
+  name: SortEnumType
+  description: SortEnumType
+  rootCategory: CategorySortInput
+  id: SortEnumType
+}
+
+input ListFilterInputTypeOfStoragedProductFilterInput {
+  all: StoragedProductFilterInput
+  none: StoragedProductFilterInput
+  some: StoragedProductFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfProductFilterInput {
+  all: ProductFilterInput
+  none: ProductFilterInput
+  some: ProductFilterInput
+  any: Boolean
+}
+
+input RequisitesFilterInput {
+  and: [RequisitesFilterInput!]
+  or: [RequisitesFilterInput!]
+  organizationType: OrganizationTypesOperationFilterInput
+  nameKZ: StringOperationFilterInput
+  nameRU: StringOperationFilterInput
+  nameEN: StringOperationFilterInput
+  director: UserFilterInput
+  bin: StringOperationFilterInput
+  kbe: StringOperationFilterInput
+  legalAddress: StringOperationFilterInput
+  physicalAddress: StringOperationFilterInput
+  bankRequisites: ListFilterInputTypeOfBankRequisitesFilterInput
+  id: IntOperationFilterInput
+}
+
+input RequisitesSortInput {
+  organizationType: SortEnumType
+  nameKZ: SortEnumType
+  nameRU: SortEnumType
+  nameEN: SortEnumType
+  director: UserSortInput
+  bin: SortEnumType
+  kbe: SortEnumType
+  legalAddress: SortEnumType
+  physicalAddress: SortEnumType
+  id: SortEnumType
+}
+
+"""
+The `Date` scalar represents an ISO-8601 compliant date type.
+"""
+scalar Date
+
+input RoleFilterInput {
+  and: [RoleFilterInput!]
+  or: [RoleFilterInput!]
+  userType: TypeOperationFilterInput
+  company: CompanyFilterInput
+}
+
+input RoleSortInput {
+  userType: SortEnumType
+  company: CompanySortInput
+}
+
+input SalableObjectFilterInput {
+  and: [SalableObjectFilterInput!]
+  or: [SalableObjectFilterInput!]
+  name: StringOperationFilterInput
+  description: StringOperationFilterInput
+  priceBuy: FloatOperationFilterInput
+  priceSell: FloatOperationFilterInput
+  id: IntOperationFilterInput
+}
+
+input CompanyCategoryOperationFilterInput {
+  eq: CompanyCategory
+  neq: CompanyCategory
+  in: [CompanyCategory!]
+  nin: [CompanyCategory!]
+}
+
+input ContactsFilterInput {
+  and: [ContactsFilterInput!]
+  or: [ContactsFilterInput!]
+  phones: ListFilterInputTypeOfPhoneNumberFilterInput
+  emails: ListStringOperationFilterInput
+  instagram: StringOperationFilterInput
+  webSite: StringOperationFilterInput
+  linkedIn: StringOperationFilterInput
+  id: IntOperationFilterInput
+}
+
+input ListFilterInputTypeOfCashRegisterFilterInput {
+  all: CashRegisterFilterInput
+  none: CashRegisterFilterInput
+  some: CashRegisterFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfStorageFilterInput {
+  all: StorageFilterInput
+  none: StorageFilterInput
+  some: StorageFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfNomenclatureFilterInput {
+  all: NomenclatureFilterInput
+  none: NomenclatureFilterInput
+  some: NomenclatureFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfSupplierFilterInput {
+  all: SupplierFilterInput
+  none: SupplierFilterInput
+  some: SupplierFilterInput
+  any: Boolean
+}
+
+input ListFilterInputTypeOfPaymentFilterInput {
+  all: PaymentFilterInput
+  none: PaymentFilterInput
+  some: PaymentFilterInput
+  any: Boolean
+}
+
+input ContactsSortInput {
+  instagram: SortEnumType
+  webSite: SortEnumType
+  linkedIn: SortEnumType
+  id: SortEnumType
+}
+
+input ListFilterInputTypeOfCategoryFilterInput {
+  all: CategoryFilterInput
+  none: CategoryFilterInput
+  some: CategoryFilterInput
+  any: Boolean
+}
+
+input OrganizationTypesOperationFilterInput {
+  eq: OrganizationTypes
+  neq: OrganizationTypes
+  in: [OrganizationTypes!]
+  nin: [OrganizationTypes!]
+}
+
+input ListFilterInputTypeOfBankRequisitesFilterInput {
+  all: BankRequisitesFilterInput
+  none: BankRequisitesFilterInput
+  some: BankRequisitesFilterInput
+  any: Boolean
+}
+
+input TypeOperationFilterInput {
+  eq: Type
+  neq: Type
+  in: [Type!]
+  nin: [Type!]
+}
+
+input ListFilterInputTypeOfPhoneNumberFilterInput {
+  all: PhoneNumberFilterInput
+  none: PhoneNumberFilterInput
+  some: PhoneNumberFilterInput
+  any: Boolean
+}
+
+input ListStringOperationFilterInput {
+  all: StringOperationFilterInput
+  none: StringOperationFilterInput
+  some: StringOperationFilterInput
+  any: Boolean
+}
+
+input BankRequisitesFilterInput {
+  and: [BankRequisitesFilterInput!]
+  or: [BankRequisitesFilterInput!]
+  name: StringOperationFilterInput
+  iik: StringOperationFilterInput
+  bik: StringOperationFilterInput
+  id: IntOperationFilterInput
+}
+
+input PhoneNumberFilterInput {
+  and: [PhoneNumberFilterInput!]
+  or: [PhoneNumberFilterInput!]
+  number: StringOperationFilterInput
+  whatsApp: BooleanOperationFilterInput
+  id: IntOperationFilterInput
+}
+
+input UserDTOInput {
+  name: String!
+  surname: String!
+  patronomic: String!
+  email: String
+  dateOfBirth: Date
+  credentials: UserCredentialsDTOInput!
+  roles: [RoleInput!]!
+}
+
+type Supplier {
+  requisites: Requisites!
+  nomenclature: Nomenclature!
+  company: Company!
+  id: Int!
+}
+
+type Nomenclature {
+  products: [Product!]!
+  company: Company!
+  id: Int!
+}
+
+type Storage {
+  name: String!
+  description: String!
+  products: [StoragedProduct!]!
+  company: Company!
+  id: Int!
+}
+
+type CashRegister {
+  name: String!
+  description: String!
+  company: Company!
+  id: Int!
+}
+
+type StoragedProduct {
+  product: Product!
+  quantity: Float!
+  id: Int!
+}
+
+type Product {
+  barCode: String!
+  category: Category!
+  name: String!
+  description: String!
+  priceBuy: Float!
+  priceSell: Float!
+  id: Int!
+}
+
+type Service {
+  category: Category!
+  providers: [User!]!
+  company: Company!
+  name: String!
+  description: String!
+  priceBuy: Float!
+  priceSell: Float!
+  id: Int!
+}
+
+type Card {
+  barcode: String!
+  owner: User!
+  connectedServices: [Service!]!
+  id: Int!
+}
+
+type Payment {
+  provider: User!
+  customer: User!
+  rule: PaymentRule!
+  cart: [SalableObject!]!
+  isCompleted: Boolean!
+  company: Company!
+  id: Int!
+}
+
+type PaymentRule {
+  dates: [PaymentDate!]!
+  id: Int!
+}
+
+type PaymentDate {
+  date: Date!
+  price: Float!
+  id: Int!
+}
+
+type User {
+  name: String!
+  surname: String!
+  patronomic: String!
+  email: String
+  dateOfBirth: Date
+  credentials: UserCredentials!
+  roles: [Role!]!
+  id: Int!
+}
+
+type UserCredentials {
+  phoneNumber: String!
+  password: String!
+  userId: Int!
+  role: Role!
+  id: Int!
+}
+
+input UserCredentialsDTOInput {
+  phoneNumber: String!
+  password: String!
+  userId: Int!
+  role: RoleDTOInput!
+}
+
+input ProductDTOInput {
+  barCode: String!
+  category: CategoryDTOInput!
+  name: String!
+  description: String!
+  priceBuy: Float!
+  priceSell: Float!
+}
+
+input PaymentDateDTOInput {
+  date: Date!
+  price: Float!
+}
+
+input PaymentRuleDTOInput {
+  dates: [PaymentDateDTOInput!]!
+}
+
+input PaymentDTOInput {
+  provider: UserDTOInput!
+  customer: UserDTOInput!
+  rule: PaymentRuleDTOInput!
+  cart: [SalableObjectDTOInput!]!
+  isCompleted: Boolean!
+  company: CompanyDTOInput!
+}
+
+input ServiceDTOInput {
+  category: CategoryDTOInput!
+  providers: [UserDTOInput!]!
+  company: CompanyDTOInput!
+  name: String!
+  description: String!
+  priceBuy: Float!
+  priceSell: Float!
+}
+
+enum CompanyCategory {
+  DEVELOPER
+  FITNESS_CENTRE
+  SPORTS_NUTRITION_STORE
+  SPORTS_NUTRITION_SUPPLIER
+}
+
+enum OrganizationTypes {
+  IE
+  LLP
+  JSC
+}
+
+enum Type {
+  OWNER
+  ADMIN
+  SPECIALIST
+  CLIENT
+}
+
+input CompanyDTOInput {
+  publicName: String!
+  description: String!
+  category: CompanyCategory!
+  requisites: RequisitesDTOInput!
+  contacts: ContactsDTOInput!
+  staff: [UserDTOInput!]!
+  clients: [UserDTOInput!]!
+  cashRegisters: [CashRegisterDTOInput!]!
+  storages: [StorageDTOInput!]!
+  nomenclatures: [NomenclatureDTOInput!]!
+  suppliers: [SupplierDTOInput!]!
+  services: [ServiceDTOInput!]!
+  payment: [PaymentDTOInput!]!
+}
+
+input SalableObjectDTOInput {
+  name: String!
+  description: String!
+  priceBuy: Float!
+  priceSell: Float!
+}
+
+input CategoryDTOInput {
+  name: String!
+  description: String!
+  rootCategory: CategoryDTOInput
+  childCategories: [CategoryDTOInput!]
+}
+
+input RoleDTOInput {
+  userType: Type!
+  company: CompanyInput!
+}
+
+type Role {
+  userType: Type!
+  company: Company!
+}
+
+type SalableObject {
+  name: String!
+  description: String!
+  priceBuy: Float!
+  priceSell: Float!
+  id: Int!
+}
+
+type Category {
+  name: String!
+  description: String!
+  rootCategory: Category
+  childCategories: [Category!]
+  id: Int!
+}
+
+type Company {
+  publicName: String!
+  description: String!
+  category: CompanyCategory!
+  requisites: Requisites!
+  contacts: Contacts!
+  staff: [User!]!
+  clients: [User!]!
+  cashRegisters: [CashRegister!]!
+  storages: [Storage!]!
+  nomenclatures: [Nomenclature!]!
+  suppliers: [Supplier!]!
+  services: [Service!]!
+  payment: [Payment!]!
+  id: Int!
+}
+
+type Requisites {
+  organizationType: OrganizationTypes!
+  nameKZ: String!
+  nameRU: String!
+  nameEN: String
+  director: User
+  bin: String
+  kbe: String
+  legalAddress: String
+  physicalAddress: String
+  bankRequisites: [BankRequisites!]!
+  id: Int!
+}
+
+input RoleInput {
+  userType: Type!
+  company: CompanyInput!
+}
+
+type BankRequisites {
+  name: String!
+  iik: String!
+  bik: String!
+  id: Int!
+}
+
+type Contacts {
+  phones: [PhoneNumber!]!
+  emails: [String!]!
+  instagram: String!
+  webSite: String!
+  linkedIn: String!
+  id: Int!
+}
+
+input CompanyInput {
+  publicName: String!
+  description: String!
+  category: CompanyCategory!
+  requisites: RequisitesInput!
+  contacts: ContactsInput!
+  staff: [UserInput!]!
+  clients: [UserInput!]!
+  cashRegisters: [CashRegisterInput!]!
+  storages: [StorageInput!]!
+  nomenclatures: [NomenclatureInput!]!
+  suppliers: [SupplierInput!]!
+  services: [ServiceInput!]!
+  payment: [PaymentInput!]!
+  id: Int!
+}
+
+input SupplierDTOInput {
+  requisites: RequisitesDTOInput!
+  nomenclature: NomenclatureDTOInput!
+  company: CompanyDTOInput!
+}
+
+input NomenclatureDTOInput {
+  products: [ProductDTOInput!]!
+  company: CompanyDTOInput!
+}
+
+input StorageDTOInput {
+  name: String!
+  description: String!
+  products: [StoragedProductDTOInput!]!
+  company: CompanyDTOInput!
+}
+
+input CashRegisterDTOInput {
+  name: String!
+  description: String!
+  company: CompanyDTOInput!
+}
+
+input ContactsDTOInput {
+  phones: [PhoneNumberDTOInput!]!
+  emails: [String!]!
+  instagram: String!
+  webSite: String!
+  linkedIn: String!
+}
+
+input RequisitesDTOInput {
+  organizationType: OrganizationTypes!
+  nameKZ: String!
+  nameRU: String!
+  nameEN: String
+  director: UserDTOInput
+  bin: String
+  kbe: String
+  legalAddress: String
+  physicalAddress: String
+  bankRequisites: [BankRequisitesDTOInput!]!
+}
+
+input BankRequisitesDTOInput {
+  name: String!
+  iik: String!
+  bik: String!
+}
+
+input PhoneNumberDTOInput {
+  number: String!
+  whatsApp: Boolean!
+}
+
+input StoragedProductDTOInput {
+  product: ProductDTOInput!
+  quantity: Float!
+}
+
+input PaymentInput {
+  provider: UserInput!
+  customer: UserInput!
+  rule: PaymentRuleInput!
+  cart: [SalableObjectInput!]!
+  isCompleted: Boolean!
+  company: CompanyInput!
+  id: Int!
+}
+
+input ServiceInput {
+  category: CategoryInput!
+  providers: [UserInput!]!
+  company: CompanyInput!
+  name: String!
+  description: String!
+  priceBuy: Float!
+  priceSell: Float!
+  id: Int!
+}
+
+input SupplierInput {
+  requisites: RequisitesInput!
+  nomenclature: NomenclatureInput!
+  company: CompanyInput!
+  id: Int!
+}
+
+input NomenclatureInput {
+  products: [ProductInput!]!
+  company: CompanyInput!
+  id: Int!
+}
+
+input StorageInput {
+  name: String!
+  description: String!
+  products: [StoragedProductInput!]!
+  company: CompanyInput!
+  id: Int!
+}
+
+input CashRegisterInput {
+  name: String!
+  description: String!
+  company: CompanyInput!
+  id: Int!
+}
+
+input UserInput {
+  name: String!
+  surname: String!
+  patronomic: String!
+  email: String
+  dateOfBirth: Date
+  credentials: UserCredentialsInput!
+  roles: [RoleInput!]!
+  id: Int!
+}
+
+input ContactsInput {
+  phones: [PhoneNumberInput!]!
+  emails: [String!]!
+  instagram: String!
+  webSite: String!
+  linkedIn: String!
+  id: Int!
+}
+
+input RequisitesInput {
+  organizationType: OrganizationTypes!
+  nameKZ: String!
+  nameRU: String!
+  nameEN: String
+  director: UserInput
+  bin: String
+  kbe: String
+  legalAddress: String
+  physicalAddress: String
+  bankRequisites: [BankRequisitesInput!]!
+  id: Int!
+}
+
+type PhoneNumber {
+  number: String!
+  whatsApp: Boolean!
+  id: Int!
+}
+
+input BankRequisitesInput {
+  name: String!
+  iik: String!
+  bik: String!
+  id: Int!
+}
+
+input PhoneNumberInput {
+  number: String!
+  whatsApp: Boolean!
+  id: Int!
+}
+
+input UserCredentialsInput {
+  phoneNumber: String!
+  password: String!
+  userId: Int!
+  role: RoleInput!
+  id: Int!
+}
+
+input StoragedProductInput {
+  product: ProductInput!
+  quantity: Float!
+  id: Int!
+}
+
+input ProductInput {
+  barCode: String!
+  category: CategoryInput!
+  name: String!
+  description: String!
+  priceBuy: Float!
+  priceSell: Float!
+  id: Int!
+}
+
+input CategoryInput {
+  name: String!
+  description: String!
+  rootCategory: CategoryInput
+  childCategories: [CategoryInput!]
+  id: Int!
+}
+
+input SalableObjectInput {
+  name: String!
+  description: String!
+  priceBuy: Float!
+  priceSell: Float!
+  id: Int!
+}
+
+input PaymentRuleInput {
+  dates: [PaymentDateInput!]!
+  id: Int!
+}
+
+input PaymentDateInput {
+  date: Date!
+  price: Float!
+  id: Int!
+}
