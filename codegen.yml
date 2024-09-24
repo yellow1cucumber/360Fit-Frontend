@@ -1,0 +1,13 @@
+schema: "./schema.graphql"
+documents: "./src/**/**/*.graphql"
+generates:
+  ./src/app/graphql/types.ts:
+    plugins:
+      - "typescript"
+      - "typescript-operations"
+      - "typescript-apollo-angular"
+    config:
+      serviceName: '360Fit-WebClient'
+      serviceProvidedInRoot: true
+      skipTypename: true
+      onlyOperationTypes: true
