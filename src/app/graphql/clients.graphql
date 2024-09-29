@@ -15,6 +15,20 @@ query GetClients ($CompanyID: Int!){
       id
       userType
     }
+    card {
+      barcode
+      id
+      owner
+      connectedServices{
+        id
+        name
+      }
+    }
+    dateOfBirth
+    deposit
+    email
+    lastVisit
+    surname
   }
 }
 
@@ -33,5 +47,20 @@ mutation CreateClient($payload: UserDTOInput!) {
       id
       userType
     }
+  }
+}
+
+mutation UpdateClient($payload: UserInput!){
+  updateUser(
+    payload: $payload
+  ) {
+    dateOfBirth
+    deposit
+    email
+    id
+    lastVisit
+    name
+    patronomic
+    surname
   }
 }

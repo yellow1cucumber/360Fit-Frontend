@@ -22,7 +22,7 @@ import {ClientsService} from "../../../../Services/Clients/clients.service";
 export class ClientsTableComponent implements OnInit{
   constructor(private readonly clientsService: ClientsService) { }
 
-  public clients: GetClientsQuery["readUsers"] = [];
+  public clients: UserInput[] = [];
 
   @Output() public OnDoubleClick: EventEmitter<UserInput> = new EventEmitter();
   public UserSelected(client: UserInput): void{
@@ -31,7 +31,7 @@ export class ClientsTableComponent implements OnInit{
 
   ngOnInit(): void {
     this.clientsService.GetClients(1).subscribe(clients => {
-      this.clients = clients.data?.readUsers || [];
+      this.clients = clients;
     })
   }
 }

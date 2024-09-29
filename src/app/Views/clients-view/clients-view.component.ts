@@ -5,6 +5,7 @@ import {UserSearchComponent} from "./Components/user-search/user-search.componen
 import {SlideMenuComponent} from "./Components/slide-menu/slide-menu.component";
 import {NgClass} from "@angular/common";
 import {UserInput} from "../../graphql/types";
+import {ClientsService} from "../../Services/Clients/clients.service";
 
 
 @Component({
@@ -21,7 +22,7 @@ import {UserInput} from "../../graphql/types";
   styleUrl: './clients-view.component.scss'
 })
 export class ClientsViewComponent {
-  constructor() {}
+  constructor(private readonly clientsService: ClientsService) {}
 
   public IsSlideMenuActive: boolean = false;
   public ChangeSlideMenuVisibility(): void{
@@ -29,6 +30,7 @@ export class ClientsViewComponent {
   }
 
   public ClientSelected(client: UserInput) : void {
+    this.clientsService.SetSelectedClient(client);
     this.IsSlideMenuActive = true;
   }
 }

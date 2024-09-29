@@ -7,12 +7,12 @@
 <hr>
 
 <div class="table-rows">
-  <div class="table-row" *ngFor="let client of this.clients">
+  <div class="table-row" *ngFor="let client of this.clients" (dblclick)="this.UserSelected(client)">
     <div class="data">
-      <h5 class="roboto-light">{{ client.patronomic + " " + client.name }}</h5>
+      <h5 class="roboto-light">{{ client.surname + " " + client.name }}</h5>
       <h5 class="roboto-light">{{ client.phoneNumber.number }}</h5>
-      <h5 class="roboto-light">{{ client.phoneNumber.whatsApp }}</h5>
-      <h5 class="roboto-light"></h5>
+      <h5 class="roboto-light">{{ client.card?.id ?? "-" }}</h5>
+      <h5 class="roboto-light">{{ client.lastVisit ?? "-" }}</h5>
     </div>
     <hr>
   </div>

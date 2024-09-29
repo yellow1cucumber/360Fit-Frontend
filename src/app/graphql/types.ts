@@ -947,6 +947,7 @@ export type UserFilterInput = {
   deposit?: InputMaybe<FloatOperationFilterInput>;
   email?: InputMaybe<StringOperationFilterInput>;
   id?: InputMaybe<IntOperationFilterInput>;
+  lastVisit?: InputMaybe<DateOperationFilterInput>;
   name?: InputMaybe<StringOperationFilterInput>;
   or?: InputMaybe<Array<UserFilterInput>>;
   patronomic?: InputMaybe<StringOperationFilterInput>;
@@ -961,6 +962,7 @@ export type UserInput = {
   deposit: Scalars['Float']['input'];
   email?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['Int']['input'];
+  lastVisit?: InputMaybe<Scalars['Date']['input']>;
   name: Scalars['String']['input'];
   patronomic?: InputMaybe<Scalars['String']['input']>;
   phoneNumber: PhoneNumberInput;
@@ -974,6 +976,7 @@ export type UserSortInput = {
   deposit?: InputMaybe<SortEnumType>;
   email?: InputMaybe<SortEnumType>;
   id?: InputMaybe<SortEnumType>;
+  lastVisit?: InputMaybe<SortEnumType>;
   name?: InputMaybe<SortEnumType>;
   patronomic?: InputMaybe<SortEnumType>;
   phoneNumber?: InputMaybe<PhoneNumberSortInput>;
@@ -985,7 +988,7 @@ export type GetClientsQueryVariables = Exact<{
 }>;
 
 
-export type GetClientsQuery = { readUsers: Array<{ id: number, name: string, patronomic?: string | null, phoneNumber: { id: number, number: string, whatsApp: boolean }, roles: Array<{ companyId: number, id: number, userType: Type }> }> };
+export type GetClientsQuery = { readUsers: Array<{ id: number, name: string, patronomic?: string | null, dateOfBirth?: any | null, deposit: number, email?: string | null, lastVisit?: any | null, surname: string, phoneNumber: { id: number, number: string, whatsApp: boolean }, roles: Array<{ companyId: number, id: number, userType: Type }>, card?: { barcode: string, id: number, owner: number, connectedServices: Array<{ id: number, name: string }> } | null }> };
 
 export type CreateClientMutationVariables = Exact<{
   payload: UserDtoInput;
@@ -993,6 +996,13 @@ export type CreateClientMutationVariables = Exact<{
 
 
 export type CreateClientMutation = { createUser: { id: number, name: string, patronomic?: string | null, phoneNumber: { id: number, number: string, whatsApp: boolean }, roles: Array<{ companyId: number, id: number, userType: Type }> } };
+
+export type UpdateClientMutationVariables = Exact<{
+  payload: UserInput;
+}>;
+
+
+export type UpdateClientMutation = { updateUser: { dateOfBirth?: any | null, deposit: number, email?: string | null, id: number, lastVisit?: any | null, name: string, patronomic?: string | null, surname: string } };
 
 export const GetClientsDocument = gql`
     query GetClients($CompanyID: Int!) {
@@ -1012,6 +1022,20 @@ export const GetClientsDocument = gql`
       id
       userType
     }
+    card {
+      barcode
+      id
+      owner
+      connectedServices {
+        id
+        name
+      }
+    }
+    dateOfBirth
+    deposit
+    email
+    lastVisit
+    surname
   }
 }
     `;
@@ -1051,6 +1075,31 @@ export const CreateClientDocument = gql`
   })
   export class CreateClientGQL extends Apollo.Mutation<CreateClientMutation, CreateClientMutationVariables> {
     document = CreateClientDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const UpdateClientDocument = gql`
+    mutation UpdateClient($payload: UserInput!) {
+  updateUser(payload: $payload) {
+    dateOfBirth
+    deposit
+    email
+    id
+    lastVisit
+    name
+    patronomic
+    surname
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class UpdateClientGQL extends Apollo.Mutation<UpdateClientMutation, UpdateClientMutationVariables> {
+    document = UpdateClientDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);

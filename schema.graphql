@@ -150,8 +150,8 @@ type Mutations {
   updateService(payload: ServiceDTOInput!, where: ServiceFilterInput): Service!
   removeService(payload: ServiceDTOInput!, where: ServiceFilterInput): Service!
   createUser(payload: UserDTOInput!): User!
-  updateUser(payload: UserDTOInput!, where: UserFilterInput): User!
-  removeUser(payload: UserDTOInput!, where: UserFilterInput): User!
+  updateUser(payload: UserInput!, where: UserFilterInput): User!
+  removeUser(payload: UserInput!, where: UserFilterInput): User!
 }
 
 type Subscriptions {
@@ -394,6 +394,7 @@ input UserFilterInput {
   email: StringOperationFilterInput
   phoneNumber: PhoneNumberFilterInput
   dateOfBirth: DateOperationFilterInput
+  lastVisit: DateOperationFilterInput
   card: CardFilterInput
   deposit: FloatOperationFilterInput
   roles: ListFilterInputTypeOfRoleFilterInput
@@ -407,6 +408,7 @@ input UserSortInput {
   email: SortEnumType
   phoneNumber: PhoneNumberSortInput
   dateOfBirth: SortEnumType
+  lastVisit: SortEnumType
   card: CardSortInput
   deposit: SortEnumType
   id: SortEnumType
@@ -857,6 +859,7 @@ type User {
   email: String
   phoneNumber: PhoneNumber!
   dateOfBirth: Date
+  lastVisit: Date
   card: Card
   deposit: Float!
   roles: [Role!]!
@@ -1092,6 +1095,20 @@ input UserDTOInput {
   roles: [RoleDTOInput!]!
 }
 
+input UserInput {
+  name: String!
+  surname: String!
+  patronomic: String
+  email: String
+  phoneNumber: PhoneNumberInput!
+  dateOfBirth: Date
+  lastVisit: Date
+  card: CardInput
+  deposit: Float!
+  roles: [RoleInput!]!
+  id: Int!
+}
+
 enum Types {
   SUCCSESSFULL
   WARNING
@@ -1125,6 +1142,19 @@ enum Type {
   ADMIN
   SPECIALIST
   CLIENT
+}
+
+input RoleInput {
+  userType: Type!
+  companyId: Int!
+  id: Int!
+}
+
+input CardInput {
+  barcode: String!
+  owner: Int!
+  connectedServices: [ServiceInput!]!
+  id: Int!
 }
 
 input RoleDTOInput {
@@ -1254,38 +1284,12 @@ input CashRegisterInput {
   id: Int!
 }
 
-input UserInput {
-  name: String!
-  surname: String!
-  patronomic: String
-  email: String
-  phoneNumber: PhoneNumberInput!
-  dateOfBirth: Date
-  card: CardInput
-  deposit: Float!
-  roles: [RoleInput!]!
-  id: Int!
-}
-
 input ContactsInput {
   phones: [PhoneNumberInput!]!
   emails: [String!]!
   instagram: String!
   webSite: String!
   linkedIn: String!
-  id: Int!
-}
-
-input RoleInput {
-  userType: Type!
-  companyId: Int!
-  id: Int!
-}
-
-input CardInput {
-  barcode: String!
-  owner: Int!
-  connectedServices: [ServiceInput!]!
   id: Int!
 }
 
