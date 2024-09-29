@@ -18,12 +18,12 @@
 
   <div class="input-field">
     <label for="CardNumber" class="roboto-light">Номер карты:</label>
-    <input type="text" id="CardNumber" formControlName="CardNumber" [ngModel]="ActiveClient?.credentials?.phoneNumber ?? ''">
+    <input type="text" id="CardNumber" formControlName="CardNumber" [ngModel]="ActiveClient?.phoneNumber?.number ?? ''">
   </div>
 
   <div class="input-field">
     <label for="PhoneNumber" class="roboto-light">Номер телефона:</label>
-    <input type="tel" id="PhoneNumber" formControlName="PhoneNumber" [ngModel]="ActiveClient?.credentials?.phoneNumber ?? ''">
+    <input type="tel" id="PhoneNumber" formControlName="PhoneNumber" [ngModel]="ActiveClient?.phoneNumber?.number ?? ''">
   </div>
 
   <div class="input-field">

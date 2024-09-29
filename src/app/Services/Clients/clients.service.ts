@@ -1,16 +1,39 @@
 import { Injectable } from '@angular/core';
 import {Apollo} from "apollo-angular";
-import {map, Observable} from "rxjs";
-import {GetClientsDocument, GetClientsGQL, GetClientsQuery} from "../../graphql/types";
+import {
+  CreateClientDocument,
+  CreateClientGQL, CreateClientMutation, CreateClientMutationVariables,
+  GetClientsDocument,
+  GetClientsGQL,
+  GetClientsQuery, GetClientsQueryVariables, UserDtoInput
+} from "../../graphql/types";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClientsService {
-  constructor(private apollo: Apollo, private clientsQuery: GetClientsGQL) { }
+  constructor(private apollo: Apollo, private getClientsQuery: GetClientsGQL,
+                                      private createClientMutation: CreateClientGQL) { }
 
-  public GetClients() : Observable<GetClientsQuery> {
-    return this.apollo.watchQuery<GetClientsQuery>({query: GetClientsDocument}).valueChanges
-      .pipe(map(result => result.data));
+  public GetClients(companyId: number) {
+    return this.apollo.watchQuery<GetClientsQuery, GetClientsQueryVariables>(
+      {
+        query: GetClientsDocument,
+        variables: {
+          CompanyID: companyId
+        }
+      }
+    ).valueChanges;
+  }
+
+  public CreateClient(client: UserDtoInput) {
+    return this.apollo.mutate<CreateClientMutation, CreateClientMutationVariables>(
+      {
+        mutation: CreateClientDocument,
+        variables:{
+          payload: client,
+        },
+      }
+    );
   }
 }

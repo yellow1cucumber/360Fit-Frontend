@@ -1,8 +1,9 @@
 import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {TableHeaderComponent} from "../table-header/table-header.component";
 import {AsyncPipe, DatePipe, NgClass, NgForOf, NgIf} from "@angular/common";
-import {GetUsersGQL, GetUsersQuery, UserInput} from "../../../../graphql/types";
+import {GetClientsQuery, UserInput} from "../../../../graphql/types";
 import {map, Observable} from "rxjs";
+import {ClientsService} from "../../../../Services/Clients/clients.service";
 
 @Component({
   selector: 'app-clients-table',
@@ -19,18 +20,18 @@ import {map, Observable} from "rxjs";
   styleUrl: './clients-table.component.scss'
 })
 export class ClientsTableComponent implements OnInit{
-  constructor(private readonly getUsersGQL: GetUsersGQL) {}
+  constructor(private readonly clientsService: ClientsService) { }
+
+  public clients: GetClientsQuery["readUsers"] = [];
 
   @Output() public OnDoubleClick: EventEmitter<UserInput> = new EventEmitter();
-  public users$: Observable<GetUsersQuery['readUsers']>;
-
   public UserSelected(client: UserInput): void{
     this.OnDoubleClick.emit(client);
   }
 
   ngOnInit(): void {
-    this.users$ = this.getUsersGQL.watch().valueChanges.pipe(
-      map(result => result.data.readUsers)
-    );
+    this.clientsService.GetClients(1).subscribe(clients => {
+      this.clients = clients.data?.readUsers || [];
+    })
   }
 }
