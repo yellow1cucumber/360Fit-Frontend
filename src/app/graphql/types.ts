@@ -17,6 +17,8 @@ export type Scalars = {
   Float: { input: number; output: number; }
   /** The `Date` scalar represents an ISO-8601 compliant date type. */
   Date: { input: any; output: any; }
+  /** The `DateTime` scalar represents an ISO-8601 compliant date time type. */
+  DateTime: { input: any; output: any; }
 };
 
 export type BankRequisitesDtoInput = {
@@ -41,6 +43,13 @@ export type BankRequisitesInput = {
   name: Scalars['String']['input'];
 };
 
+export type BankRequisitesSortInput = {
+  bik?: InputMaybe<SortEnumType>;
+  id?: InputMaybe<SortEnumType>;
+  iik?: InputMaybe<SortEnumType>;
+  name?: InputMaybe<SortEnumType>;
+};
+
 export type BooleanOperationFilterInput = {
   eq?: InputMaybe<Scalars['Boolean']['input']>;
   neq?: InputMaybe<Scalars['Boolean']['input']>;
@@ -52,13 +61,20 @@ export type CardFilterInput = {
   connectedServices?: InputMaybe<ListFilterInputTypeOfServiceFilterInput>;
   id?: InputMaybe<IntOperationFilterInput>;
   or?: InputMaybe<Array<CardFilterInput>>;
-  owner?: InputMaybe<UserFilterInput>;
+  owner?: InputMaybe<IntOperationFilterInput>;
+};
+
+export type CardInput = {
+  barcode: Scalars['String']['input'];
+  connectedServices: Array<ServiceInput>;
+  id: Scalars['Int']['input'];
+  owner: Scalars['Int']['input'];
 };
 
 export type CardSortInput = {
   barcode?: InputMaybe<SortEnumType>;
   id?: InputMaybe<SortEnumType>;
-  owner?: InputMaybe<UserSortInput>;
+  owner?: InputMaybe<SortEnumType>;
 };
 
 export type CashRegisterDtoInput = {
@@ -122,6 +138,30 @@ export type CategorySortInput = {
   rootCategory?: InputMaybe<CategorySortInput>;
 };
 
+export type ClientLogDtoInput = {
+  dateTime: Scalars['DateTime']['input'];
+  message: Scalars['String']['input'];
+  senders: Array<SenderTags>;
+  type: Types;
+};
+
+export type ClientLogFilterInput = {
+  and?: InputMaybe<Array<ClientLogFilterInput>>;
+  dateTime?: InputMaybe<DateTimeOperationFilterInput>;
+  id?: InputMaybe<IntOperationFilterInput>;
+  message?: InputMaybe<StringOperationFilterInput>;
+  or?: InputMaybe<Array<ClientLogFilterInput>>;
+  senders?: InputMaybe<ListSenderTagsOperationFilterInput>;
+  type?: InputMaybe<TypesOperationFilterInput>;
+};
+
+export type ClientLogSortInput = {
+  dateTime?: InputMaybe<SortEnumType>;
+  id?: InputMaybe<SortEnumType>;
+  message?: InputMaybe<SortEnumType>;
+  type?: InputMaybe<SortEnumType>;
+};
+
 export enum CompanyCategory {
   Developer = 'DEVELOPER',
   FitnessCentre = 'FITNESS_CENTRE',
@@ -156,7 +196,6 @@ export type CompanyFilterInput = {
   and?: InputMaybe<Array<CompanyFilterInput>>;
   cashRegisters?: InputMaybe<ListFilterInputTypeOfCashRegisterFilterInput>;
   category?: InputMaybe<CompanyCategoryOperationFilterInput>;
-  clients?: InputMaybe<ListFilterInputTypeOfUserFilterInput>;
   contacts?: InputMaybe<ContactsFilterInput>;
   description?: InputMaybe<StringOperationFilterInput>;
   id?: InputMaybe<IntOperationFilterInput>;
@@ -166,15 +205,14 @@ export type CompanyFilterInput = {
   publicName?: InputMaybe<StringOperationFilterInput>;
   requisites?: InputMaybe<RequisitesFilterInput>;
   services?: InputMaybe<ListFilterInputTypeOfServiceFilterInput>;
-  staff?: InputMaybe<ListFilterInputTypeOfUserFilterInput>;
   storages?: InputMaybe<ListFilterInputTypeOfStorageFilterInput>;
   suppliers?: InputMaybe<ListFilterInputTypeOfSupplierFilterInput>;
+  users?: InputMaybe<ListFilterInputTypeOfUserFilterInput>;
 };
 
 export type CompanyInput = {
   cashRegisters: Array<CashRegisterInput>;
   category: CompanyCategory;
-  clients: Array<UserInput>;
   contacts: ContactsInput;
   description: Scalars['String']['input'];
   id: Scalars['Int']['input'];
@@ -183,9 +221,9 @@ export type CompanyInput = {
   publicName: Scalars['String']['input'];
   requisites: RequisitesInput;
   services: Array<ServiceInput>;
-  staff: Array<UserInput>;
   storages: Array<StorageInput>;
   suppliers: Array<SupplierInput>;
+  users: Array<UserInput>;
 };
 
 export type CompanySortInput = {
@@ -245,6 +283,21 @@ export type DateOperationFilterInput = {
   nin?: InputMaybe<Array<InputMaybe<Scalars['Date']['input']>>>;
   nlt?: InputMaybe<Scalars['Date']['input']>;
   nlte?: InputMaybe<Scalars['Date']['input']>;
+};
+
+export type DateTimeOperationFilterInput = {
+  eq?: InputMaybe<Scalars['DateTime']['input']>;
+  gt?: InputMaybe<Scalars['DateTime']['input']>;
+  gte?: InputMaybe<Scalars['DateTime']['input']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  lt?: InputMaybe<Scalars['DateTime']['input']>;
+  lte?: InputMaybe<Scalars['DateTime']['input']>;
+  neq?: InputMaybe<Scalars['DateTime']['input']>;
+  ngt?: InputMaybe<Scalars['DateTime']['input']>;
+  ngte?: InputMaybe<Scalars['DateTime']['input']>;
+  nin?: InputMaybe<Array<InputMaybe<Scalars['DateTime']['input']>>>;
+  nlt?: InputMaybe<Scalars['DateTime']['input']>;
+  nlte?: InputMaybe<Scalars['DateTime']['input']>;
 };
 
 export type FloatOperationFilterInput = {
@@ -380,6 +433,13 @@ export type ListFilterInputTypeOfUserFilterInput = {
   any?: InputMaybe<Scalars['Boolean']['input']>;
   none?: InputMaybe<UserFilterInput>;
   some?: InputMaybe<UserFilterInput>;
+};
+
+export type ListSenderTagsOperationFilterInput = {
+  all?: InputMaybe<SenderTagsOperationFilterInput>;
+  any?: InputMaybe<Scalars['Boolean']['input']>;
+  none?: InputMaybe<SenderTagsOperationFilterInput>;
+  some?: InputMaybe<SenderTagsOperationFilterInput>;
 };
 
 export type ListStringOperationFilterInput = {
@@ -530,6 +590,12 @@ export type PhoneNumberInput = {
   whatsApp: Scalars['Boolean']['input'];
 };
 
+export type PhoneNumberSortInput = {
+  id?: InputMaybe<SortEnumType>;
+  number?: InputMaybe<SortEnumType>;
+  whatsApp?: InputMaybe<SortEnumType>;
+};
+
 export type ProductDtoInput = {
   barCode: Scalars['String']['input'];
   category: CategoryDtoInput;
@@ -628,25 +694,22 @@ export type RequisitesSortInput = {
 };
 
 export type RoleDtoInput = {
-  company: CompanyInput;
+  companyId: Scalars['Int']['input'];
   userType: Type;
 };
 
 export type RoleFilterInput = {
   and?: InputMaybe<Array<RoleFilterInput>>;
-  company?: InputMaybe<CompanyFilterInput>;
+  companyId?: InputMaybe<IntOperationFilterInput>;
+  id?: InputMaybe<IntOperationFilterInput>;
   or?: InputMaybe<Array<RoleFilterInput>>;
   userType?: InputMaybe<TypeOperationFilterInput>;
 };
 
 export type RoleInput = {
-  company: CompanyInput;
+  companyId: Scalars['Int']['input'];
+  id: Scalars['Int']['input'];
   userType: Type;
-};
-
-export type RoleSortInput = {
-  company?: InputMaybe<CompanySortInput>;
-  userType?: InputMaybe<SortEnumType>;
 };
 
 export type SalableObjectDtoInput = {
@@ -672,6 +735,20 @@ export type SalableObjectInput = {
   name: Scalars['String']['input'];
   priceBuy: Scalars['Float']['input'];
   priceSell: Scalars['Float']['input'];
+};
+
+export enum SenderTags {
+  Clients = 'CLIENTS',
+  Organization = 'ORGANIZATION',
+  Sells = 'SELLS',
+  Service = 'SERVICE'
+}
+
+export type SenderTagsOperationFilterInput = {
+  eq?: InputMaybe<SenderTags>;
+  in?: InputMaybe<Array<SenderTags>>;
+  neq?: InputMaybe<SenderTags>;
+  nin?: InputMaybe<Array<SenderTags>>;
 };
 
 export type ServiceDtoInput = {
@@ -838,123 +915,102 @@ export type TypeOperationFilterInput = {
   nin?: InputMaybe<Array<Type>>;
 };
 
-export type UserCredentialsDtoInput = {
-  password: Scalars['String']['input'];
-  phoneNumber: Scalars['String']['input'];
-  role: RoleDtoInput;
-  userId: Scalars['Int']['input'];
-};
+export enum Types {
+  Error = 'ERROR',
+  Log = 'LOG',
+  Succsessfull = 'SUCCSESSFULL',
+  System = 'SYSTEM',
+  Warning = 'WARNING'
+}
 
-export type UserCredentialsFilterInput = {
-  and?: InputMaybe<Array<UserCredentialsFilterInput>>;
-  id?: InputMaybe<IntOperationFilterInput>;
-  or?: InputMaybe<Array<UserCredentialsFilterInput>>;
-  password?: InputMaybe<StringOperationFilterInput>;
-  phoneNumber?: InputMaybe<StringOperationFilterInput>;
-  role?: InputMaybe<RoleFilterInput>;
-  userId?: InputMaybe<IntOperationFilterInput>;
-};
-
-export type UserCredentialsInput = {
-  id: Scalars['Int']['input'];
-  password: Scalars['String']['input'];
-  phoneNumber: Scalars['String']['input'];
-  role: RoleInput;
-  userId: Scalars['Int']['input'];
-};
-
-export type UserCredentialsSortInput = {
-  id?: InputMaybe<SortEnumType>;
-  password?: InputMaybe<SortEnumType>;
-  phoneNumber?: InputMaybe<SortEnumType>;
-  role?: InputMaybe<RoleSortInput>;
-  userId?: InputMaybe<SortEnumType>;
+export type TypesOperationFilterInput = {
+  eq?: InputMaybe<Types>;
+  in?: InputMaybe<Array<Types>>;
+  neq?: InputMaybe<Types>;
+  nin?: InputMaybe<Array<Types>>;
 };
 
 export type UserDtoInput = {
-  credentials: UserCredentialsDtoInput;
   dateOfBirth?: InputMaybe<Scalars['Date']['input']>;
   email?: InputMaybe<Scalars['String']['input']>;
   name: Scalars['String']['input'];
   patronomic: Scalars['String']['input'];
-  roles: Array<RoleInput>;
+  phoneNumber: PhoneNumberDtoInput;
+  roles: Array<RoleDtoInput>;
   surname: Scalars['String']['input'];
 };
 
 export type UserFilterInput = {
   and?: InputMaybe<Array<UserFilterInput>>;
-  credentials?: InputMaybe<UserCredentialsFilterInput>;
+  card?: InputMaybe<CardFilterInput>;
   dateOfBirth?: InputMaybe<DateOperationFilterInput>;
+  deposit?: InputMaybe<FloatOperationFilterInput>;
   email?: InputMaybe<StringOperationFilterInput>;
   id?: InputMaybe<IntOperationFilterInput>;
   name?: InputMaybe<StringOperationFilterInput>;
   or?: InputMaybe<Array<UserFilterInput>>;
   patronomic?: InputMaybe<StringOperationFilterInput>;
+  phoneNumber?: InputMaybe<PhoneNumberFilterInput>;
   roles?: InputMaybe<ListFilterInputTypeOfRoleFilterInput>;
   surname?: InputMaybe<StringOperationFilterInput>;
 };
 
 export type UserInput = {
-  credentials: UserCredentialsInput;
+  card?: InputMaybe<CardInput>;
   dateOfBirth?: InputMaybe<Scalars['Date']['input']>;
+  deposit: Scalars['Float']['input'];
   email?: InputMaybe<Scalars['String']['input']>;
   id: Scalars['Int']['input'];
   name: Scalars['String']['input'];
-  patronomic: Scalars['String']['input'];
+  patronomic?: InputMaybe<Scalars['String']['input']>;
+  phoneNumber: PhoneNumberInput;
   roles: Array<RoleInput>;
   surname: Scalars['String']['input'];
 };
 
 export type UserSortInput = {
-  credentials?: InputMaybe<UserCredentialsSortInput>;
+  card?: InputMaybe<CardSortInput>;
   dateOfBirth?: InputMaybe<SortEnumType>;
+  deposit?: InputMaybe<SortEnumType>;
   email?: InputMaybe<SortEnumType>;
   id?: InputMaybe<SortEnumType>;
   name?: InputMaybe<SortEnumType>;
   patronomic?: InputMaybe<SortEnumType>;
+  phoneNumber?: InputMaybe<PhoneNumberSortInput>;
   surname?: InputMaybe<SortEnumType>;
 };
 
-export type GetUsersQueryVariables = Exact<{ [key: string]: never; }>;
+export type GetClientsQueryVariables = Exact<{
+  CompanyID: Scalars['Int']['input'];
+}>;
 
 
-export type GetUsersQuery = { readUsers: Array<{ dateOfBirth?: any | null, email?: string | null, id: number, name: string, patronomic: string, surname: string }> };
+export type GetClientsQuery = { readUsers: Array<{ id: number, name: string, patronomic?: string | null, phoneNumber: { id: number, number: string, whatsApp: boolean }, roles: Array<{ companyId: number, id: number, userType: Type }> }> };
 
-export type GetClientsQueryVariables = Exact<{ [key: string]: never; }>;
+export type CreateClientMutationVariables = Exact<{
+  payload: UserDtoInput;
+}>;
 
 
-export type GetClientsQuery = { readUsers: Array<{ name: string, surname: string, credentials: { phoneNumber: string } }> };
+export type CreateClientMutation = { createUser: { id: number, name: string, patronomic?: string | null, phoneNumber: { id: number, number: string, whatsApp: boolean }, roles: Array<{ companyId: number, id: number, userType: Type }> } };
 
-export const GetUsersDocument = gql`
-    query GetUsers {
-  readUsers {
-    dateOfBirth
-    email
+export const GetClientsDocument = gql`
+    query GetClients($CompanyID: Int!) {
+  readUsers(
+    where: {roles: {some: {companyId: {eq: $CompanyID}, and: {userType: {eq: CLIENT}}}}}
+  ) {
     id
     name
     patronomic
-    surname
-  }
-}
-    `;
-
-  @Injectable({
-    providedIn: 'root'
-  })
-  export class GetUsersGQL extends Apollo.Query<GetUsersQuery, GetUsersQueryVariables> {
-    document = GetUsersDocument;
-    
-    constructor(apollo: Apollo.Apollo) {
-      super(apollo);
+    phoneNumber {
+      id
+      number
+      whatsApp
     }
-  }
-export const GetClientsDocument = gql`
-    query GetClients {
-  readUsers(where: {credentials: {role: {userType: {eq: CLIENT}}}}) {
-    name
-    surname
-    credentials {
-      phoneNumber
+    roles {
+      companyId
+      id
+      userType
     }
   }
 }
@@ -965,6 +1021,36 @@ export const GetClientsDocument = gql`
   })
   export class GetClientsGQL extends Apollo.Query<GetClientsQuery, GetClientsQueryVariables> {
     document = GetClientsDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const CreateClientDocument = gql`
+    mutation CreateClient($payload: UserDTOInput!) {
+  createUser(payload: $payload) {
+    id
+    name
+    patronomic
+    phoneNumber {
+      id
+      number
+      whatsApp
+    }
+    roles {
+      companyId
+      id
+      userType
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class CreateClientGQL extends Apollo.Mutation<CreateClientMutation, CreateClientMutationVariables> {
+    document = CreateClientDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);

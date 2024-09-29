@@ -1,0 +1,37 @@
+query GetClients ($CompanyID: Int!){
+  readUsers(
+    where: { roles: { some: { companyId: { eq: $CompanyID }, and: { userType: { eq: CLIENT } } } } }
+  ) {
+    id
+    name
+    patronomic
+    phoneNumber {
+      id
+      number
+      whatsApp
+    }
+    roles {
+      companyId
+      id
+      userType
+    }
+  }
+}
+
+mutation CreateClient($payload: UserDTOInput!) {
+  createUser(payload: $payload) {
+    id
+    name
+    patronomic
+    phoneNumber {
+      id
+      number
+      whatsApp
+    }
+    roles {
+      companyId
+      id
+      userType
+    }
+  }
+}
