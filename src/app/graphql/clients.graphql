@@ -64,3 +64,9 @@ mutation UpdateClient($payload: UserInput!){
     surname
   }
 }
+
+mutation RemoveClient($payload: UserInput!){
+  removeUser(payload: $payload){
+    id
+  }
+}

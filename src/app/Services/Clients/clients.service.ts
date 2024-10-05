@@ -1,11 +1,10 @@
 import { Injectable } from '@angular/core';
-import {Apollo} from "apollo-angular";
 import {
-  CreateClientDocument,
-  CreateClientGQL, CreateClientMutation, CreateClientMutationVariables,
-  GetClientsDocument,
-  GetClientsGQL,
-  GetClientsQuery, GetClientsQueryVariables, UpdateClientDocument, UpdateClientGQL, UserDtoInput, UserInput
+  CreateClientGQL,
+  GetClientsGQL, RemoveClientGQL,
+  UpdateClientGQL,
+  UserDtoInput,
+  UserInput
 } from "../../graphql/types";
 import {BehaviorSubject, map, Observable} from "rxjs";
 
@@ -13,9 +12,10 @@ import {BehaviorSubject, map, Observable} from "rxjs";
   providedIn: 'root'
 })
 export class ClientsService {
-  constructor(private apollo: Apollo, private getClientsQuery: GetClientsGQL,
-                                      private createClientMutation: CreateClientGQL,
-                                      private updateClientMutation: UpdateClientGQL) { }
+  constructor(private getClientsQuery: GetClientsGQL,
+              private createClientMutation: CreateClientGQL,
+              private updateClientMutation: UpdateClientGQL,
+              private removeClientMutation: RemoveClientGQL) { }
 
   private selectedClientSubject: BehaviorSubject<UserInput | UserDtoInput | null>
     = new BehaviorSubject<UserInput | UserDtoInput | null>(null);
@@ -38,5 +38,9 @@ export class ClientsService {
 
   public UpdateClient(client: UserInput) {
     return this.updateClientMutation.mutate({payload: client});
+  }
+
+  public RemoveClient(client: UserInput) {
+    return this.removeClientMutation.mutate({payload: client});
   }
 }

@@ -1004,6 +1004,13 @@ export type UpdateClientMutationVariables = Exact<{
 
 export type UpdateClientMutation = { updateUser: { dateOfBirth?: any | null, deposit: number, email?: string | null, id: number, lastVisit?: any | null, name: string, patronomic?: string | null, surname: string } };
 
+export type RemoveClientMutationVariables = Exact<{
+  payload: UserInput;
+}>;
+
+
+export type RemoveClientMutation = { removeUser: { id: number } };
+
 export const GetClientsDocument = gql`
     query GetClients($CompanyID: Int!) {
   readUsers(
@@ -1100,6 +1107,24 @@ export const UpdateClientDocument = gql`
   })
   export class UpdateClientGQL extends Apollo.Mutation<UpdateClientMutation, UpdateClientMutationVariables> {
     document = UpdateClientDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const RemoveClientDocument = gql`
+    mutation RemoveClient($payload: UserInput!) {
+  removeUser(payload: $payload) {
+    id
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class RemoveClientGQL extends Apollo.Mutation<RemoveClientMutation, RemoveClientMutationVariables> {
+    document = RemoveClientDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
